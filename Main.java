@@ -10,14 +10,7 @@ class Authentication {
     System.out.println("Enter your username: ");
     String username = sc.nextLine();
   }
-  // Wrote something here
-  // Di pa tapos ni Emman 
-  // I did some changes here
-  // Authentication here
-  //testing towav
-  //Studsar d 
-  // test ni prans hehehehe
-  // I added changes here
+  // Di pa tapos
 }
 
 public class Main {
