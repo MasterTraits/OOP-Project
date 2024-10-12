@@ -13,8 +13,7 @@ class Authentication {
   // Wrote something here
   // Di pa tapos ni Emman 
   // I did some changes here
-
-  
+  // Authentication here
 }
 
 public class Main {
