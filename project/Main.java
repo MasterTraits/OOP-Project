@@ -1,3 +1,4 @@
+package project;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +13,11 @@ public class Main {
         public String cnumber, email;
         
         // WORK DATA
-        private String occupation;
-        public String department;
-        private String dateOfHire;
-        public String supervisor;
-        private String benefits;
+        private String occupation, dateOfHire, benefits;
+        public String department, supervisor;
         
         // EMERGENCY CONTACT
-        private String emergencyContactName;
-        private String emergencyContactNumber;
-        private String relationship;
-        private String emergencyAddress;
+        private String emergencyContactName, emergencyContactNumber, relationship, emergencyAddress;
 
         public Employee(String name, String sex, String birthday, int age, String address, String cnumber, String email,
                 String occupation, String department, String dateOfHire, String supervisor, String benefits,
