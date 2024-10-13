@@ -1,32 +1,3 @@
-/*import static org.junit.jupiter.api.Assertions.assertEquals;
-// import org.junit.jupiter.api.Test;
-import java.util.Scanner;
-
-class Authentication {
-  public Scanner sc = new Scanner(System.in);
-  private String username, password;
-
-  public void getUsername() {
-    System.out.println("Enter your username: ");
-    String username = sc.nextLine();
-  }
-  // Wrote something here
-  // Di pa tapos ni Emman 
-  // I did some changes here
-  // Authentication here
-  //testing towav
-  //Studsar d 
-  // test ni prans hehehehe
-}
-
-public class Main {
-  public static void main(String[] args) {
-    System.out.println("Hello world!");
-  }
-
-}*/
-
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +7,9 @@ public class Main {
 	
     static class Employee {
     	// EMPLOYEE PERSONAL DATA
-        private String name;
-        private String sex;
-        private String birthday;
+        private String name, sex, birthday, address;
         private int age;
-        private String address;
-        public String cnumber;
-        public String email;
+        public String cnumber, email;
         
         // WORK DATA
         private String occupation;
