@@ -26,5 +26,7 @@ public class PartTime extends Employee {
     }
 
     public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+
     }
 }

@@ -7,7 +7,6 @@ class Regular extends Employee {
   private double researchBonus;
 
   public Regular(String firstName, String lastName, int id, double baseSalary, int courseLoad, boolean isTenured, double researchBonus, String occupation, String department) {
-      
       super(firstName, lastName, id, baseSalary, occupation, department);
       this.courseLoad = courseLoad;
       this.isTenured = isTenured;
