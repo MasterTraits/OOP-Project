@@ -2,6 +2,8 @@ package project.util;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+// Di niyo na need galawin to, except kung gagalawin niyo yung ArrayList sa baba
+
 public class Authentication {
     // dito 
     private static ArrayList<String> usernames = new ArrayList<String>();
