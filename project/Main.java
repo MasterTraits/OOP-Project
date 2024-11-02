@@ -8,27 +8,194 @@ import java.util.Scanner;
 // Folder Structure - project / util / <java files>
 import project.util.Authentication;
 import project.util.Employee;
-import project.util.AllOperations;
-// import project.util.Regular;
 
 public class Main {
     private static List<Employee> employees = new ArrayList<>(); // To maintain a common list without recreating
     private static Scanner scanner = new Scanner(System.in);     // For input
-    private static AllOperations HR = new AllOperations();       // Object for HR class (File)
     private static Authentication Auth = new Authentication();   // Object for Authentication class (File)
     private static final String FILE_NAME = "Hr_Ad.txt";         // File to store employee details
  
+    public static void mainfunction() {
+        int adminAnswer = 0;
+
+        while (adminAnswer < 4) {
+            System.out.printf(
+                    "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
+                    "");
+            // Display HR_AD options
+            System.out.printf("\n\n%70sWelcome! %s %s%n", "", Authentication.firstName, Authentication.lastName);
+            System.out.printf("%3sPRODUCTNAME Main Menu:%n", "");
+            System.out.printf("\t1. Add Employee%n");
+            System.out.printf("\t2. Remove Employee%n");
+            System.out.printf("\t3. Update Employee%n");
+            System.out.printf("\t4. View Employees%n");
+            System.out.printf("\t5. Back to Program Main Menu%n");
+
+            // Get the answer for HR_AD
+            System.out.print("\nAnswer: ");
+            adminAnswer = scanner.nextInt();
+
+            switch (adminAnswer) {
+                case 1:
+                    addEmployee();
+                    break;
+                case 2:
+                    removeEmployee();
+                    break;
+                case 3:
+                    updateEmployeePartTime();
+                    break;
+                case 4:
+                    viewEmployees();
+                    break;
+                case 5:
+                    System.out.println("\nReturning to the Program Main Menu.");
+                    break;
+                default:
+                    System.out.println("\nInvalid Answer!");
+            }
+        }
+    }
+
+    // --------------------------------------------------------- ADD EMPLOYEE
+    // -----------------------------------------------------------------------------
+    private static void addEmployee() {
+        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n",""); scanner.nextLine();
+        System.out.printf("\n\n%70sEMPLOYEE DETAILS%n", "");
+        System.out.print("Employee Given: ");
+        String firstName = scanner.nextLine();
+        System.out.print("Employee Surname: ");
+        String lastSurname = scanner.nextLine();
+
+        int id = 0;
+        try {
+            System.out.print("ID: ");
+            id = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Invalid ID!");
+            scanner.nextInt();
+        }
+
+        System.out.print("Employee Occupation: ");
+        String occupation = scanner.nextLine();
+
+        if (Auth.authenticate()) {
+            // String, String, int, double, String, String
+            Employee newEmployee = new Employee(firstName, lastSurname, id, 0, 0, occupation);
+            employees.add(newEmployee);
+
+            // employees.add(newEmployee);
+            System.out.printf("\n%65sEmployee added successfully!%n", "");
+        } else {
+            System.out.println("Authentication failed.");
+        }
+    }
+
+    // --------------------------------------------------------------- UPDATE EMPLOYEE -----------------------------------------------------------------------
+    private static void updateEmployeePartTime() {
+        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", ""); scanner.nextLine();
+        System.out.printf("\n\n%70sEDIT EMPLOYEE DETAILS%n", "");
+        System.out.print("Enter Employee ID to edit: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        Employee employeeToEdit = null;
+        for (Employee employee : employees) {
+            if (id == employee.getId()) {
+                employeeToEdit = employee;
+                break;
+            }
+        }
+
+        if (employeeToEdit == null) {
+            System.out.println("Employee not found.");
+            return;
+        }
+
+        System.out.print("UPDATE | Given (leave blank to keep current): ");
+        String newFirstName = scanner.nextLine();
+        System.out.print("UPDATE | Surname (leave blank to keep current): ");
+        String newLastName = scanner.nextLine();
+        System.out.print("UPDATE | Occupation (leave blank to keep current): ");
+        String newOccupation = scanner.nextLine();
+        System.out.print("UPDATE | Hourly Rate (leave blank to keep current): ");
+        String newHourlyRate = scanner.nextLine();
+        System.out.print("UPDATE | Hours Worked (leave blank to keep current): ");
+        String newHoursWorked = scanner.nextLine();
+
+        if (Auth.authenticate()) {
+            // IF Statements used to check if the input is empty or not to update the employee
+            if (!newFirstName.isEmpty()) { employeeToEdit.setFirstName(newFirstName); }
+            if (!newLastName.isEmpty()) { employeeToEdit.setLastName(newLastName); }
+            if (!newOccupation.isEmpty()) { employeeToEdit.setOccupation(newOccupation); }
+            if (!newHourlyRate.isEmpty()) { employeeToEdit.setHourlyRate(Double.parseDouble(newHourlyRate)); }
+            if (!newHoursWorked.isEmpty()) { employeeToEdit.setHoursWorked(Integer.parseInt(newHoursWorked));}
+            System.out.printf("\n%65sEmployee updated successfully!%n", "");
+        } else {
+            System.out.println("Authentication failed.");
+        }
+    }
+
+    // ------------------------------------------------------ REMOVE EMPLOYEE
+    // ----------------------------------------------------------------------
+    private static void removeEmployee() {
+        System.out.printf(
+                "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
+                "");
+        System.out.print("Enter Employee ID to remove: ");
+        int employeeId = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline
+
+        boolean removed = false;
+
+        for (Employee employee : employees) {
+            if (employee.getId() == employeeId) {
+                employees.remove(employee);
+                removed = true;
+                break; // Exit the loop after removing
+            }
+        }
+
+        if (removed) {
+            System.out.println("Employee removed successfully.");
+        } else {
+            System.out.println("Employee not found.");
+        }
+    }
+
+    // ------------------------------------------------------------------- VIEW
+    // EMPLOYEES
+    // ------------------------------------------------------------------------------
+    private static void viewEmployees() {
+        System.out.printf(
+                "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
+                "");
+
+        if (employees.isEmpty()) {
+            System.out.println("\nNo employees available.");
+        } else {
+            System.out.printf("\n\n%65sList of Employees:%n", "");
+            for (Employee employee : employees) {
+                System.out.print(employee.toString() + "\n");
+                System.out.printf("Total Salary: ₱%.2f%n", employee.calculateSalary());
+                System.out.println("");
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         loadEmployeesFromFile();
         
         /************************************************************ START ***************************************************************/       
-        System.out.printf("\n%70sWelcome to HRIS!%n", "");
+        System.out.printf("\n%70sWelcome to Product Name!%n", "");
 
         while (true) {
         	/************************************************************ PROGRAM MENU ***************************************************************/   
             // Display options for accessing HR sections
         	System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
-            System.out.printf("%3sHR Authentication:%n", "");
+            System.out.printf("%3sAuthentication:%n", "");
             System.out.printf("\t1. Login%n");
             System.out.printf("\t2. Register%n");
             System.out.printf("\t3. Exit%n"); // Option to exit the program
@@ -43,6 +210,7 @@ public class Main {
                 scanner.nextLine();
                 continue;
             }
+        	System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
 
             /******************************************************** TO TERMINATE PROGRAM ************************************************************/   
 
@@ -50,12 +218,12 @@ public class Main {
             switch (answer) {
                 case 1:
                     if (Auth.login()) { // Emman notes for self don't forget to make this a ternary operator to contain false and true for "Welcome Admin"
-                       HR.mainfunction();    
+                       mainfunction();    
                     }
                     break;
                 case 2:
                     if (Auth.register()) {
-                       HR.mainfunction();
+                       mainfunction();
                     }
                     break;
                 case 3: 
@@ -76,6 +244,8 @@ public class Main {
                     break; 
     		  }
         }
+
+        
 }
 
     // ----------------------------------------------------------------- FOR FILE ------------------------------------------------------------------

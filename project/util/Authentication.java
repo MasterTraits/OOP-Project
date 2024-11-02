@@ -2,23 +2,20 @@ package project.util;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-// Di niyo na need galawin to, except kung gagalawin niyo yung ArrayList sa baba
-
 public class Authentication {
-    // dito 
-    private static ArrayList<String> usernames = new ArrayList<String>();
+    private static ArrayList<String> email = new ArrayList<String>();
     private static ArrayList<String> passwords = new ArrayList<String>();
-    private static String[] uniqueIDs = {"admin123", "employee123"};
     private static Scanner scanner = new Scanner(System.in);
     public static String firstName;
     public static String lastName;
 
     public boolean login() {
         // PRESET CREDENTIALS
-        usernames.add("admin"); usernames.add("employee"); 
-        passwords.add("admin"); passwords.add("employee");
+        email.add("emmanuelfabella606@gmail.com");  
+        passwords.add("admin"); 
         //////////////////////////////////////////////////
-        System.out.print("Username: ");
+        System.out.printf("%70sLOG-IN%n", "");
+        System.out.print("Email:\t");
         String username = scanner.nextLine();
 
         // Fallback to scanner for password input
@@ -31,9 +28,9 @@ public class Authentication {
             password = scanner.nextLine();  // Fallback if console is unavailable
         }
 
-        // Loop through usernames and passwords to authenticate
-        for (int i = 0; i < usernames.size(); i++) {
-            if (username.equals(usernames.get(i)) && password.equals(passwords.get(i))) {
+        // Loop through email and passwords to authenticate
+        for (int i = 0; i < email.size(); i++) {
+            if (username.equals(email.get(i)) && password.equals(passwords.get(i))) {
                 System.out.println("Login successful!");
                 return true;
             }
@@ -45,21 +42,28 @@ public class Authentication {
     }
 
     public boolean register() {
-        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
+        System.out.printf("%70sREGISTRATION%n", "");
         System.out.print("First Name: ");
-        firstName = scanner.nextLine();  // Use the class field directly
+        firstName = scanner.nextLine();   
         System.out.print("Last Name: ");
-        lastName = scanner.nextLine();   // Use the class field directly
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-        usernames.add(username);
-        System.out.print("Your Unique ID\n(Provided ID from admin): ");
-        String uniqueID = scanner.nextLine();
-
-        // Check if the unique ID is valid
-        if (!UniqueID(uniqueID)) {
-            return false;
+        lastName = scanner.nextLine();  
+        String userEmail;
+        while (true) {
+            System.out.print("Email:\t   ");
+            userEmail = scanner.nextLine();
+            if (userEmail.contains("@") && userEmail.contains(".")) {
+                if (email.contains(userEmail)) {
+                    System.out.println("Email already exists. Please try again.");
+                } else {
+                    email.add(userEmail);
+                    break;
+                }
+            } else {
+                System.out.println("Invalid email format. Please try again.");
+            }
         }
+        String uniqueID = java.util.UUID.randomUUID().toString().substring(0, 12);
+        System.out.println("\n(Don't forget UID, please save)\nGenerated Unique ID: " + uniqueID);
 
         // Use console if available for password, otherwise fallback to scanner
         String password = "";
@@ -85,18 +89,28 @@ public class Authentication {
             }
         }
 
+        passwords.add(password);
         System.out.println("Registration successful!");
         return true;
     }
 
-    public boolean UniqueID(String uniqueID) {
-        for (int i = 0; i < uniqueIDs.length; i++) {
-            if (uniqueID.equals(uniqueIDs[i])) {
-                System.out.println("Authenticated!");
+    public boolean authenticate() {
+        String password = "";
+        if (System.console() != null) {
+            char[] passwordArray = System.console().readPassword("\nConfirm action (Your password): ");
+            password = new String(passwordArray);
+        } else {
+            System.out.print("Confirm action (Your password): ");
+            password = scanner.nextLine();  // Fallback if console is unavailable
+        }
+
+        for (int i = 0; i < passwords.size(); i++) {
+            if (password.equals(passwords.get(i))) {
                 return true;
             }
         }
-        System.out.println("Wrong credentials.");
+
+        System.out.println("Wrong password. Try again.");
         return false;
     }
 }

@@ -1,28 +1,29 @@
 package project.util;
 
+
 // Base class for Employees (Teachers and Professors)
 public class Employee {
     private String firstName, lastName, occupation, department;
-    private int id;
-    private double baseSalary;
+    private int id, hoursWorked;
+    private double hourlyRate;
 
-    public Employee(String firstName, String lastName, int id, double baseSalary, String occupation, String department) {
+    public Employee(String firstName, String lastName, int id, int hoursWorked ,double hourlyRate, String occupation) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
-        this.baseSalary = baseSalary;
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
         this.occupation = occupation;
-        this.department = department;
     }
 
     public double calculateSalary() {
-        return baseSalary;
+        return hourlyRate * hoursWorked;
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d\nName: %s %s\nBase Salary: ₱%.2f\nOccupation: %s\tDepartment: %s", 
-                              id, firstName, lastName, baseSalary, occupation, department);
+        return String.format("ID: %d\nName: %s %s\nBase Salary: ₱%.2f\nOccupation: %s\nHours Worked: %d\t\tHourly Rate: ₱%.2f", 
+                              id, firstName, lastName, hourlyRate, occupation, hoursWorked, hourlyRate);
     }
 
     public String getFirstName() {
@@ -37,8 +38,8 @@ public class Employee {
         return id;
     }
 
-    public double getBaseSalary() {
-        return baseSalary;
+    public double gethourlyRate() {
+        return hourlyRate;
     }
 
     public String getOccupation() {
@@ -49,8 +50,8 @@ public class Employee {
         return department;
     }
 
-    public void setBaseSalary(double baseSalary) {
-        this.baseSalary = baseSalary;
+    public void sethourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
     }
 
     public void setOccupation(String occupation) {
@@ -67,6 +68,14 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setHoursWorked(int hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
     }
 }
 
