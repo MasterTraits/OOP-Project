@@ -6,6 +6,7 @@ public class Authentication {
     private static ArrayList<String> email = new ArrayList<String>();
     private static ArrayList<String> passwords = new ArrayList<String>();
     private static Scanner scanner = new Scanner(System.in);
+    private static boolean registerAs;
     public static String firstName;
     public static String lastName;
 
@@ -14,8 +15,8 @@ public class Authentication {
         email.add("emmanuelfabella606@gmail.com");  
         passwords.add("admin"); 
         //////////////////////////////////////////////////
-        System.out.printf("%70sLOG-IN%n", "");
-        System.out.print("Email:\t");
+        System.out.printf("\n\n%70sLOG-IN%n", "");
+        System.out.print("\nEmail:\t");
         String username = scanner.nextLine();
 
         // Fallback to scanner for password input
@@ -42,7 +43,17 @@ public class Authentication {
     }
 
     public boolean register() {
-        System.out.printf("%70sREGISTRATION%n", "");
+        System.out.printf("\n\n%70sREGISTRATION%n", "");
+        System.out.printf("%3sREGISTER AS:%n", "");
+        System.out.printf("\t1. Employee");
+        System.out.printf("\t2. Employer ");
+        System.out.print("\n\nAnswer: ");
+        this.registerAs = scanner.nextInt() == 1 ? true : false; scanner.nextLine();
+        if (registerAs) {
+            System.out.println("\nEmployee Registration\n----------------------");
+        } else {
+            System.out.println("\nEmployer Registration\n----------------------");
+        }
         System.out.print("First Name: ");
         firstName = scanner.nextLine();   
         System.out.print("Last Name: ");
@@ -112,5 +123,9 @@ public class Authentication {
 
         System.out.println("Wrong password. Try again.");
         return false;
+    }
+
+    public boolean getRegisterAs() {
+        return registerAs;
     }
 }

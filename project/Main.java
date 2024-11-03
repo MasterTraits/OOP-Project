@@ -15,16 +15,16 @@ public class Main {
     private static Authentication Auth = new Authentication();   // Object for Authentication class (File)
     private static final String FILE_NAME = "Hr_Ad.txt";         // File to store employee details
  
-    public static void mainfunction() {
+    public static void employerFunction() {
         int adminAnswer = 0;
 
-        while (adminAnswer < 4) {
+        while (adminAnswer <= 4) {
             System.out.printf(
                     "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
                     "");
             // Display HR_AD options
             System.out.printf("\n\n%70sWelcome! %s %s%n", "", Authentication.firstName, Authentication.lastName);
-            System.out.printf("%3sPRODUCTNAME Main Menu:%n", "");
+            System.out.printf("%3sVirtuoso Main Menu:%n", "");
             System.out.printf("\t1. Add Employee%n");
             System.out.printf("\t2. Remove Employee%n");
             System.out.printf("\t3. Update Employee%n");
@@ -77,15 +77,26 @@ public class Main {
             scanner.nextInt();
         }
 
+        System.out.print("Hours per Day: ");
+        int hoursPerDay = scanner.nextInt(); scanner.nextLine();    
+        System.out.print("(Monthly) Contracted total hours: ");
+        int hoursWorked = scanner.nextInt(); scanner.nextLine();
+        System.out.print("(Peso) Hourly Rate: ");
+        double hourlyRate = scanner.nextDouble(); scanner.nextLine();
         System.out.print("Employee Occupation: ");
         String occupation = scanner.nextLine();
+        System.out.println("Employee Contributions: ");
+        System.out.print("1. SSS (Yes/No): ");
+        boolean SSS = scanner.nextLine().equalsIgnoreCase("yes");
+        System.out.print("2. PhilHealth (Yes/No): ");
+        boolean philHealth = scanner.nextLine().equalsIgnoreCase("yes");
+        System.out.print("3. Pag-IBIG (Yes/No): ");
+        boolean pagIbig = scanner.nextLine().equalsIgnoreCase("yes");
 
         if (Auth.authenticate()) {
-            // String, String, int, double, String, String
-            Employee newEmployee = new Employee(firstName, lastSurname, id, 0, 0, occupation);
+            Employee newEmployee = new Employee(firstName, lastSurname, hoursPerDay, id, hoursWorked, hourlyRate, occupation, SSS, philHealth, pagIbig);
             employees.add(newEmployee);
 
-            // employees.add(newEmployee);
             System.out.printf("\n%65sEmployee added successfully!%n", "");
         } else {
             System.out.println("Authentication failed.");
@@ -123,6 +134,12 @@ public class Main {
         String newHourlyRate = scanner.nextLine();
         System.out.print("UPDATE | Hours Worked (leave blank to keep current): ");
         String newHoursWorked = scanner.nextLine();
+        System.out.print("UPDATE | Absences (leave blank to keep current): ");
+        String newAbsences = scanner.nextLine();
+        System.out.print("UPDATE | Tardiness (leave blank to keep current): ");
+        String newTardiness = scanner.nextLine();
+        System.out.print("UPDATE | Overtime Hours (leave blank to keep current): ");
+        String newOvertimeHours = scanner.nextLine();
 
         if (Auth.authenticate()) {
             // IF Statements used to check if the input is empty or not to update the employee
@@ -131,6 +148,9 @@ public class Main {
             if (!newOccupation.isEmpty()) { employeeToEdit.setOccupation(newOccupation); }
             if (!newHourlyRate.isEmpty()) { employeeToEdit.setHourlyRate(Double.parseDouble(newHourlyRate)); }
             if (!newHoursWorked.isEmpty()) { employeeToEdit.setHoursWorked(Integer.parseInt(newHoursWorked));}
+            if (!newAbsences.isEmpty()) { employeeToEdit.setAbsences(Integer.parseInt(newAbsences)); }
+            if (!newTardiness.isEmpty()) { employeeToEdit.setTardiness(Integer.parseInt(newTardiness)); }
+            if (!newOvertimeHours.isEmpty()) { employeeToEdit.setOvertimeHours(Integer.parseInt(newOvertimeHours)); }
             System.out.printf("\n%65sEmployee updated successfully!%n", "");
         } else {
             System.out.println("Authentication failed.");
@@ -178,6 +198,9 @@ public class Main {
             System.out.printf("\n\n%65sList of Employees:%n", "");
             for (Employee employee : employees) {
                 System.out.print(employee.toString() + "\n");
+                System.out.printf("SSS: %s%n", employee.getSSS() ? "True" : "No");
+                System.out.printf("PhilHealth: %s%n", employee.getPhilHealth() ? "True" : "No");
+                System.out.printf("Pag-IBIG: %s%n", employee.getPagIbig() ? "True" : "No");
                 System.out.printf("Total Salary: ₱%.2f%n", employee.calculateSalary());
                 System.out.println("");
             }
@@ -203,7 +226,7 @@ public class Main {
             int answer;
             try {
                 // Get the user answer
-                System.out.print("\nYour Input: ");
+                System.out.print("\nAnswer: ");
                 answer = scanner.nextInt();                
             } catch (Exception e) {
                 System.out.println("Invalid Input! Please enter a number.");
@@ -218,12 +241,19 @@ public class Main {
             switch (answer) {
                 case 1:
                     if (Auth.login()) { // Emman notes for self don't forget to make this a ternary operator to contain false and true for "Welcome Admin"
-                       mainfunction();    
+                       if (Auth.getRegisterAs()) {
+
+                        } else {
+                            employerFunction();
+                        }
                     }
                     break;
                 case 2:
                     if (Auth.register()) {
-                       mainfunction();
+                        if (Auth.getRegisterAs()) {
+                        } else {
+                            employerFunction();
+                        }
                     }
                     break;
                 case 3: 
