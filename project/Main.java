@@ -77,12 +77,44 @@ public class Main {
             scanner.nextInt();
         }
 
-        System.out.print("Hours per Day: ");
-        int hoursPerDay = scanner.nextInt(); scanner.nextLine();    
-        System.out.print("(Monthly) Contracted total hours: ");
-        int hoursWorked = scanner.nextInt(); scanner.nextLine();
-        System.out.print("(Peso) Hourly Rate: ");
-        double hourlyRate = scanner.nextDouble(); scanner.nextLine();
+        int hoursPerDay = 0;
+        while (true) {
+            try {
+            System.out.print("Hours per Day: ");
+            hoursPerDay = scanner.nextInt();
+            scanner.nextLine();
+            break;
+            } catch (Exception e) {
+            System.out.println("Invalid input! Please enter a valid number for Hours per Day.");
+            scanner.nextLine(); // Clear the invalid input
+            }
+        }
+
+        int hoursWorked = 0;
+        while (true) {
+            try {
+            System.out.print("(Monthly) Contracted total hours: ");
+            hoursWorked = scanner.nextInt();
+            scanner.nextLine();
+            break;
+            } catch (Exception e) {
+            System.out.println("Invalid input! Please enter a valid number for Contracted total hours.");
+            scanner.nextLine(); // Clear the invalid input
+            }
+        }
+
+        double hourlyRate = 0.0;
+        while (true) {
+            try {
+            System.out.print("(Peso) Hourly Rate: ");
+            hourlyRate = scanner.nextDouble();
+            scanner.nextLine();
+            break;
+            } catch (Exception e) {
+            System.out.println("Invalid input! Please enter a valid number for Hourly Rate.");
+            scanner.nextLine(); // Clear the invalid input
+            }
+        }
         System.out.print("Employee Occupation: ");
         String occupation = scanner.nextLine();
         System.out.println("Employee Contributions: ");
@@ -107,9 +139,18 @@ public class Main {
     private static void updateEmployeePartTime() {
         System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", ""); scanner.nextLine();
         System.out.printf("\n\n%70sEDIT EMPLOYEE DETAILS%n", "");
-        System.out.print("Enter Employee ID to edit: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        int id = 0;
+        while (true) {
+            try {
+            System.out.print("Enter Employee ID to edit: ");
+            id = scanner.nextInt();
+            scanner.nextLine();
+            break;
+            } catch (Exception e) {
+            System.out.println("Invalid ID! Please enter a valid number.");
+            scanner.nextLine(); // Clear the invalid input
+            }
+        }
 
         Employee employeeToEdit = null;
         for (Employee employee : employees) {
@@ -146,11 +187,35 @@ public class Main {
             if (!newFirstName.isEmpty()) { employeeToEdit.setFirstName(newFirstName); }
             if (!newLastName.isEmpty()) { employeeToEdit.setLastName(newLastName); }
             if (!newOccupation.isEmpty()) { employeeToEdit.setOccupation(newOccupation); }
-            if (!newHourlyRate.isEmpty()) { employeeToEdit.setHourlyRate(Double.parseDouble(newHourlyRate)); }
-            if (!newHoursWorked.isEmpty()) { employeeToEdit.setHoursWorked(Integer.parseInt(newHoursWorked));}
-            if (!newAbsences.isEmpty()) { employeeToEdit.setAbsences(Integer.parseInt(newAbsences)); }
-            if (!newTardiness.isEmpty()) { employeeToEdit.setTardiness(Integer.parseInt(newTardiness)); }
-            if (!newOvertimeHours.isEmpty()) { employeeToEdit.setOvertimeHours(Integer.parseInt(newOvertimeHours)); }
+            try {
+                if (!newHourlyRate.isEmpty()) { employeeToEdit.setHourlyRate(Double.parseDouble(newHourlyRate)); }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for Hourly Rate. Keeping current value.");
+            }
+
+            try {
+                if (!newHoursWorked.isEmpty()) { employeeToEdit.setHoursWorked(Integer.parseInt(newHoursWorked)); }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for Hours Worked. Keeping current value.");
+            }
+
+            try {
+                if (!newAbsences.isEmpty()) { employeeToEdit.setAbsences(Integer.parseInt(newAbsences)); }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for Absences. Keeping current value.");
+            }
+
+            try {
+                if (!newTardiness.isEmpty()) { employeeToEdit.setTardiness(Integer.parseInt(newTardiness)); }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for Tardiness. Keeping current value.");
+            }
+
+            try {
+                if (!newOvertimeHours.isEmpty()) { employeeToEdit.setOvertimeHours(Integer.parseInt(newOvertimeHours)); }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for Overtime Hours. Keeping current value.");
+            }
             System.out.printf("\n%65sEmployee updated successfully!%n", "");
         } else {
             System.out.println("Authentication failed.");
