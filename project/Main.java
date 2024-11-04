@@ -20,9 +20,8 @@ public class Main {
 
         while (adminAnswer <= 4) {
             System.out.printf(
-                    "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
-                    "");
-            // Display HR_AD options
+                    "%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
+            // Display Menu options
             System.out.printf("\n\n%70sWelcome! %s %s%n", "", Authentication.firstName, Authentication.lastName);
             System.out.printf("%3sVirtuoso Main Menu:%n", "");
             System.out.printf("\t1. Add Employee%n");
@@ -31,7 +30,7 @@ public class Main {
             System.out.printf("\t4. View Employees%n");
             System.out.printf("\t5. Back to Program Main Menu%n");
 
-            // Get the answer for HR_AD
+            // Get the answer for Menu
             System.out.print("\nAnswer: ");
             adminAnswer = scanner.nextInt();
 
@@ -57,12 +56,11 @@ public class Main {
         }
     }
 
-    // --------------------------------------------------------- ADD EMPLOYEE
-    // -----------------------------------------------------------------------------
+    // --------------------------------------------------------- ADD EMPLOYEE -----------------------------------------------------------------------------
     private static void addEmployee() {
         System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n",""); scanner.nextLine();
         System.out.printf("\n\n%70sEMPLOYEE DETAILS%n", "");
-        System.out.print("Employee Given: ");
+        System.out.print("Employee First Name: ");
         String firstName = scanner.nextLine();
         System.out.print("Employee Surname: ");
         String lastSurname = scanner.nextLine();
@@ -222,8 +220,7 @@ public class Main {
         }
     }
 
-    // ------------------------------------------------------ REMOVE EMPLOYEE
-    // ----------------------------------------------------------------------
+    // ------------------------------------------------------ REMOVE EMPLOYEE ----------------------------------------------------------------------
     private static void removeEmployee() {
         System.out.printf(
                 "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
@@ -249,9 +246,7 @@ public class Main {
         }
     }
 
-    // ------------------------------------------------------------------- VIEW
-    // EMPLOYEES
-    // ------------------------------------------------------------------------------
+    // ------------------------------------------------------------------- VIEW EMPLOYEES ------------------------------------------------------------------------------
     private static void viewEmployees() {
         System.out.printf(
                 "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
@@ -281,7 +276,7 @@ public class Main {
 
         while (true) {
         	/************************************************************ PROGRAM MENU ***************************************************************/   
-            // Display options for accessing HR sections
+            // Display options for accessing Admin sections
         	System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
             System.out.printf("%3sAuthentication:%n", "");
             System.out.printf("\t1. Login%n");
