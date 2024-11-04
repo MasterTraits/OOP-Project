@@ -21,15 +21,6 @@ public class Employee {
     }
 
     public double calculateSalary() {
-        // if (this.SSS) {
-        //     deductions += 500; // Example deduction for SSS
-        // }
-        // if (this.PhilHealth) {
-        //     deductions += 300; // Example deduction for PhilHealth
-        // }
-        // if (this.PagIbig) {
-        //     deductions += 200; // Example deduction for PagIbig
-        // }
         double salary = (((hoursWorked + overTime) - absences) - tardiness) * hourlyRate;
         double deductions = 0;
 

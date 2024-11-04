@@ -2,6 +2,9 @@ package project.util;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+// Create relationaship between Employee and Authentication
+// ID number is string and is passed through 
+
 public class Authentication {
     private static ArrayList<String> email = new ArrayList<String>();
     private static ArrayList<String> passwords = new ArrayList<String>();
@@ -128,4 +131,34 @@ public class Authentication {
     public boolean getRegisterAs() {
         return registerAs;
     }
-}
+
+    public String getEmail() {
+        if (!email.isEmpty()) {
+            return email.get(0); // Return the first email in the list
+        }
+        return null; // Or return an empty string or a default value
+    }
+
+    public void setEmail(String newEmail) {
+        if (!email.isEmpty()) {
+            email.set(0, newEmail); // Set the first email in the list
+        } else {
+            email.add(newEmail); // Add the email if the list is empty
+        }
+    }
+
+    public String getPassword() {
+        if (!passwords.isEmpty()) {
+            return passwords.get(0); // Return the first password in the list
+        }
+        return null; // Or return an empty string or a default value
+    }
+
+    public void setPassword(String newPassword) {
+        if (!passwords.isEmpty()) {
+            passwords.set(0, newPassword); // Set the first password in the list
+        } else {
+            passwords.add(newPassword); // Add the password if the list is empty
+        }
+    }
+}   
