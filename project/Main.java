@@ -13,21 +13,22 @@ public class Main {
     private static List<Employee> employees = new ArrayList<>(); // To maintain a common list without recreating
     private static Scanner scanner = new Scanner(System.in);     // For input
     private static Authentication Auth = new Authentication();   // Object for Authentication class (File)
-    private static final String FILE_NAME = "Hr_Ad.txt";         // File to store employee details
+    private static final String FILE_NAME = "EmployeesData.txt";         // File to store employee details
  
     public static void employerFunction() {
         int adminAnswer = 0;
 
-        while (adminAnswer < 5) {
-            System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n","");
+        while (adminAnswer <= 4) {
+            System.out.printf(
+                    "%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
             // Display Menu options
-            System.out.printf("\n\n%70sWelcome! %s %s%n", "", Authentication.firstName, Authentication.lastName);
+            System.out.printf("\n\n%60sWelcome! %s %s%n", "", Authentication.firstName, Authentication.lastName);
             System.out.printf("%3sVirtuoso Main Menu:%n", "");
             System.out.printf("\t1. Add Employee%n");
             System.out.printf("\t2. Remove Employee%n");
             System.out.printf("\t3. Update Employee%n");
             System.out.printf("\t4. View Employees%n");
-            System.out.printf("\t5. Log-out%n");
+            System.out.printf("\t5. Back to Program Main Menu%n");
 
             // Get the answer for Menu
             System.out.print("\nAnswer: ");
@@ -47,55 +48,6 @@ public class Main {
                     viewEmployees();
                     break;
                 case 5:
-                    // "Your transparency as an employer."
-                    break;
-                case 6:
-                    System.out.println("\nReturning to the Program Main Menu.");
-                    break;
-                default:
-                    System.out.println("\nInvalid Answer!");
-            }
-        }
-    }
-
-    public static void employeeFunction() {
-        int employeeAnswer = 0;
-
-        while (employeeAnswer < 7) {
-            System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
-            // Display Menu options
-            System.out.printf("\n\n%70sWelcome! %s %s%n", "", Authentication.firstName, Authentication.lastName);
-            System.out.printf("%3sVirtuoso Main Menu:%n", "");
-            System.out.printf("\t1. View Profile%n");
-            System.out.printf("\t2. Update Profile%n");
-            System.out.printf("\t3. View Pay Slip%n");
-            System.out.printf("\t4. Employer's Transparency%n");
-            System.out.printf("\t5. Contact Information of Employer%n");
-            System.out.printf("\t6. Request for Leave%n");
-            System.out.printf("\t7. Log-out%n");
-
-            // Get the answer for Menu
-            System.out.print("\nAnswer: ");
-            employeeAnswer = scanner.nextInt();
-
-            switch (employeeAnswer) {
-                case 1:
-                    viewProfile();
-                    break;
-                case 2:
-                    updateProfile();
-                    break;
-                case 3:
-                    viewPaySlip();
-                    break;
-                case 4:
-                    // "Employer's Transparency."
-                    break;
-                case 5: 
-                    // "Contact Information of Employer"
-                case 6:
-                    // "Request for Leave"
-                case 7:
                     System.out.println("\nReturning to the Program Main Menu.");
                     break;
                 default:
@@ -108,7 +60,7 @@ public class Main {
     private static void addEmployee() {
         System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n",""); scanner.nextLine();
         System.out.printf("\n\n%70sEMPLOYEE DETAILS%n", "");
-        System.out.print("Employee Given: ");
+        System.out.print("Employee First Name: ");
         String firstName = scanner.nextLine();
         System.out.print("Employee Surname: ");
         String lastSurname = scanner.nextLine();
@@ -270,10 +222,12 @@ public class Main {
 
     // ------------------------------------------------------ REMOVE EMPLOYEE ----------------------------------------------------------------------
     private static void removeEmployee() {
-        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
+        System.out.printf(
+                "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
+                "");
         System.out.print("Enter Employee ID to remove: ");
         int employeeId = scanner.nextInt();
-        scanner.nextLine(); 
+        scanner.nextLine(); // Consume the newline
 
         boolean removed = false;
 
@@ -281,7 +235,7 @@ public class Main {
             if (employee.getId() == employeeId) {
                 employees.remove(employee);
                 removed = true;
-                break; 
+                break; // Exit the loop after removing
             }
         }
 
@@ -294,7 +248,9 @@ public class Main {
 
     // ------------------------------------------------------------------- VIEW EMPLOYEES ------------------------------------------------------------------------------
     private static void viewEmployees() {
-        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
+        System.out.printf(
+                "%20s---------------------------------------------------------------------------------------------------------------------------------%n",
+                "");
 
         if (employees.isEmpty()) {
             System.out.println("\nNo employees available.");
@@ -310,72 +266,9 @@ public class Main {
             }
         }
     }
-    
-    // EMPLOYEE FUNCTIONS 
-    private static void viewProfile() {
-        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
-        System.out.printf("\n\n%70sPROFILE DETAILS%n", "");
-        System.out.printf("\n%65sName: %s %s%n", "", Authentication.firstName, Authentication.lastName);
-        System.out.printf("\n%65sEmail: %s%n", "", Auth.getEmail());
-    }
 
-    private static void updateProfile() {
-        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
-        System.out.printf("\n\n%70sUPDATE PROFILE DETAILS%n", "");
-        System.out.print("UPDATE | First Name (leave blank to keep current): ");
-        String newFirstName = scanner.nextLine();
-        System.out.print("UPDATE | Last Name (leave blank to keep current): ");
-        String newLastName = scanner.nextLine();
-        System.out.print("UPDATE | Email (leave blank to keep current): ");
-        String newEmail = scanner.nextLine();
-        System.out.print("UPDATE | Password (leave blank to keep current): ");
-        String newPassword = scanner.nextLine();
 
-        if (Auth.authenticate()) {
-            if (!newFirstName.isEmpty()) {
-                Authentication.firstName = newFirstName;
-            }
-            if (!newLastName.isEmpty()) {
-                Authentication.lastName = newLastName;
-            }
-            if (!newEmail.isEmpty()) {
-                Auth.setEmail(newEmail);
-            }
-            if (!newPassword.isEmpty()) {
-                Auth.setPassword(newPassword);
-            }
-            System.out.printf("\n%65sProfile updated successfully!%n", "");
-        } else {
-            System.out.println("Authentication failed.");
-        }
-    }
-
-        private static void viewPaySlip() {
-            System.out.print("Enter Employee ID to view Pay Slip: ");
-            int employeeId = scanner.nextInt();
-            scanner.nextLine();
-
-            Employee employeeToView = null;
-            for (Employee employee : employees) {
-                if (employee.getId() == employeeId) {
-                    employeeToView = employee;
-                    break;
-                }
-            }
-
-            if (employeeToView != null) {
-                System.out.print(employeeToView.toString() + "\n");
-                System.out.printf("SSS: %s%n", employeeToView.getSSS() ? "True" : "No");
-                System.out.printf("PhilHealth: %s%n", employeeToView.getPhilHealth() ? "True" : "No");
-                System.out.printf("Pag-IBIG: %s%n", employeeToView.getPagIbig() ? "True" : "No");
-                System.out.printf("Total Salary: ₱%.2f%n", employeeToView.calculateSalary());
-                System.out.println("");
-            } else {
-                System.out.println("Employee not found.");
-            }
-        }
-
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         loadEmployeesFromFile();
         
         /************************************************************ START ***************************************************************/       
@@ -383,7 +276,7 @@ public class Main {
 
         while (true) {
         	/************************************************************ PROGRAM MENU ***************************************************************/   
-            // Display options for accessing HR sections
+            // Display options for accessing Admin sections
         	System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
             System.out.printf("%3sAuthentication:%n", "");
             System.out.printf("\t1. Login%n");
@@ -409,7 +302,7 @@ public class Main {
                 case 1:
                     if (Auth.login()) { // Emman notes for self don't forget to make this a ternary operator to contain false and true for "Welcome Admin"
                        if (Auth.getRegisterAs()) {
-                            employeeFunction();
+
                         } else {
                             employerFunction();
                         }
@@ -418,7 +311,6 @@ public class Main {
                 case 2:
                     if (Auth.register()) {
                         if (Auth.getRegisterAs()) {
-                            employeeFunction();
                         } else {
                             employerFunction();
                         }
@@ -444,55 +336,54 @@ public class Main {
         }
 
         
-        
 }
 
-private static void saveEmployeesToFile() {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-        for (Employee employee : employees) {
-            writer.write(employee.toString()); // Assuming toString() is in a consistent format.
-            writer.newLine();
-        }
-        System.out.println("Employee data saved to file successfully.");
-    } catch (IOException e) {
-        System.out.println("Error saving employee data to file.");
-    }
-}
-
-// Load employees from file at the start of the program
-private static void loadEmployeesFromFile() {
-    File file = new File(FILE_NAME);
-
-    if (file.exists()) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] details = line.split(", "); // Assuming toString() format matches this delimiter
-                
-                // Adjust this part based on the fields of the Employee class
-                Employee employee = new Employee(
-                    details[0],                    // firstName
-                    details[1],                    // lastSurname
-                    Integer.parseInt(details[2]),  // hoursPerDay
-                    Integer.parseInt(details[3]),  // id
-                    Integer.parseInt(details[4]),  // hoursWorked
-                    Double.parseDouble(details[5]),// hourlyRate
-                    details[6],                    // occupation
-                    Boolean.parseBoolean(details[7]), // SSS
-                    Boolean.parseBoolean(details[8]), // PhilHealth
-                    Boolean.parseBoolean(details[9])  // PagIbig
-                );
-                
-                employees.add(employee); // Add loaded employee to list
+ // ----------------------------------------------------------------- FOR FILE ------------------------------------------------------------------
+    
+    private static void saveEmployeesToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (Employee employee : employees) {
+                writer.write(employee.toString()); // Assuming toString() is in a consistent format.
+                writer.newLine();
             }
-            System.out.println("Employee data loaded successfully from file.");
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Error loading employee data from file.");
+            System.out.println("Employee data saved to file successfully.");
+        } catch (IOException e) {
+            System.out.println("Error saving employee data to file.");
         }
-    } else {
-        System.out.println("No existing file found. Starting with an empty employee list.");
     }
+
+    // Load employees from file at the start of the program
+    private static void loadEmployeesFromFile() {
+        File file = new File(FILE_NAME);
+
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] details = line.split(", "); // Assuming toString() format matches this delimiter
+                    
+                    // Adjust this part based on the fields of the Employee class
+                    Employee employee = new Employee(
+                        details[0],                    // firstName
+                        details[1],                    // lastSurname
+                        Integer.parseInt(details[2]),  // hoursPerDay
+                        Integer.parseInt(details[3]),  // id
+                        Integer.parseInt(details[4]),  // hoursWorked
+                        Double.parseDouble(details[5]),// hourlyRate
+                        details[6],                    // occupation
+                        Boolean.parseBoolean(details[7]), // SSS
+                        Boolean.parseBoolean(details[8]), // PhilHealth
+                        Boolean.parseBoolean(details[9])  // PagIbig
+                    );
+                    
+                    employees.add(employee); // Add loaded employee to list
+                }
+                System.out.println("Employee data loaded successfully from file.");
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("Error loading employee data from file.");
+            }
+        } else {
+            System.out.println("No existing file found. Starting with an empty employee list.");
+        }
     }
 }
-
-
