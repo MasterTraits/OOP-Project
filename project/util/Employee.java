@@ -1,34 +1,40 @@
 package project.util;
 
-//Base class for Employees (Teachers and Professors)
+// Base class for Employees (Teachers and Professors)
 public class Employee {
-    private String firstName;
-    private String lastName;
-    private int id;
-    private int hoursPerDay;
-    private int hoursWorked;
+    private String firstName, lastName, occupation;
+    private int id, hoursPerDay, hoursWorked, tardiness, absences, overtimeHours;
     private double hourlyRate;
-    private String occupation;
-    private boolean SSS;
-    private boolean philHealth;
-    private boolean pagIbig;
-    private int absences;
-    private int tardiness;
-    private int overtimeHours;
+    private boolean SSS, philHealth, pagIbig;
 
-    // Constructor
-    public Employee(String firstName, String lastName, int hoursPerDay, int id, int hoursWorked, 
-                    double hourlyRate, String occupation, boolean SSS, boolean philHealth, boolean pagIbig) {
+    public Employee(String firstName, String lastName, int hoursPerDay, int id, int hoursWorked, double hourlyRate,
+            String occupation, boolean SSS, boolean PhilHealth, boolean PagIbig) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.hoursPerDay = hoursPerDay;
         this.id = id;
-        this.hoursWorked = hoursWorked;
         this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
         this.occupation = occupation;
         this.SSS = SSS;
         this.philHealth = philHealth;
         this.pagIbig = pagIbig;
+    }
+
+    public double calculateSalary() {
+        double salary = (((hoursWorked + overtimeHours) - absences) - tardiness) * hourlyRate;
+        double deductions = 0;
+
+        if (this.SSS) {
+            deductions += salary * 0.022; // 2.2% deduction for SSS
+        }
+        if (this.philHealth) {
+            deductions += salary * 0.01; // 1% deduction for PhilHealth
+        }
+        if (this.pagIbig) {
+            deductions += salary * 0.045; // 4.5% deduction for PagIbig
+        }
+
+        return salary - deductions;
     }
 
     // Getters and setters for the fields
@@ -63,42 +69,21 @@ public class Employee {
     public void setPagIbig(boolean pagIbig) { this.pagIbig = pagIbig; }
 
     public int getAbsences() { return absences; }
-    public void setAbsences(int absences) { this.absences = absences; }
+    public void setAbsences(int absences) { this.absences = absences * hoursPerDay; }
 
     public int getTardiness() { return tardiness; }
     public void setTardiness(int tardiness) { this.tardiness = tardiness; }
 
     public int getOvertimeHours() { return overtimeHours; }
     public void setOvertimeHours(int overtimeHours) { this.overtimeHours = overtimeHours; }
-
-    // Calculate salary based on worked hours and hourly rate
-   public double calculateSalary() {
-        double salary = (((hoursWorked + overtimeHours) - absences) - tardiness) * hourlyRate;
-        double deductions = 0;
-
-        if (this.SSS) {
-            deductions += salary * 0.022; // 2.2% deduction for SSS
-        }
-        if (this.philHealth) {
-            deductions += salary * 0.01; // 1% deduction for PhilHealth
-        }
-        if (this.pagIbig) {
-            deductions += salary * 0.045; // 4.5% deduction for PagIbig
-        }
-
-        return salary - deductions;
-    }
-
+    
     @Override
     public String toString() {
-        return String.join(", ",
-                firstName, lastName, occupation, String.valueOf(id),
-                String.valueOf(hoursPerDay), String.valueOf(hoursWorked), String.valueOf(hourlyRate),
-                String.valueOf(SSS), String.valueOf(philHealth), String.valueOf(pagIbig),
-                String.valueOf(absences), String.valueOf(tardiness), String.valueOf(overtimeHours));
+        return String.format(
+                "ID: %d\nName: %s %s\nOccupation: %s\nBase Salary: ₱%.2f\tHourly Rate: ₱%.2f\nOver time: %d\nAbsences: %d\nTardiness: %d\nTotal Hours Worked: %d hrs with %d+ over time",
+                id, firstName, lastName, occupation, hourlyRate * hoursWorked,  hourlyRate, overtimeHours, absences, tardiness, (hoursWorked - absences) - tardiness, overtimeHours);
     }
 
-    // Static method to parse an employee record from a line of text
     public static Employee fromString(String line) {
         String[] details = line.split(", ");
         return new Employee(
@@ -107,4 +92,5 @@ public class Employee {
                 Boolean.parseBoolean(details[7]), Boolean.parseBoolean(details[8]), Boolean.parseBoolean(details[9])
         );
     }
+
 }
