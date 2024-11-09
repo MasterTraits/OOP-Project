@@ -2,18 +2,19 @@ package project.util;
 
 // Base class for Employees (Teachers and Professors)
 public class Employee {
-    private String firstName, lastName, occupation;
+    private String firstName, lastName, contact, occupation;
     private int id, hoursPerDay, hoursWorked, tardiness, absences, overtimeHours;
     private double hourlyRate;
     private boolean SSS, philHealth, pagIbig;
 
     public Employee(String firstName, String lastName, int hoursPerDay, int id, int hoursWorked, double hourlyRate,
-            String occupation, boolean SSS, boolean PhilHealth, boolean PagIbig) {
+            String occupation, String contact, boolean SSS, boolean PhilHealth, boolean PagIbig) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
         this.hourlyRate = hourlyRate;
         this.hoursWorked = hoursWorked;
+        this.contact = contact;
         this.occupation = occupation;
         this.SSS = SSS;
         this.philHealth = philHealth;
@@ -80,15 +81,15 @@ public class Employee {
     @Override
     public String toString() {
         return String.format(
-                "ID: %d\nName: %s %s\nOccupation: %s\nBase Salary: ₱%.2f\tHourly Rate: ₱%.2f\nOver time: %d\nAbsences: %d\nTardiness: %d\nTotal Hours Worked: %d hrs with %d+ over time",
-                id, firstName, lastName, occupation, hourlyRate * hoursWorked,  hourlyRate, overtimeHours, absences, tardiness, (hoursWorked - absences) - tardiness, overtimeHours);
+                "ID: %d\nName: %s %s\nOccupation: %s\nContact: %s\nBase Salary: ₱%.2f\tHourly Rate: ₱%.2f\nOver time: %d\nAbsences: %d\nTardiness: %d\nTotal Hours Worked: %d hrs with %d+ over time",
+                id, firstName, lastName, occupation, contact, hourlyRate * hoursWorked,  hourlyRate, overtimeHours, absences, tardiness, (hoursWorked - absences) - tardiness, overtimeHours);
     }
 
     public static Employee fromString(String line) {
         String[] details = line.split(", ");
         return new Employee(
                 details[0], details[1], Integer.parseInt(details[4]), Integer.parseInt(details[3]),
-                Integer.parseInt(details[5]), Double.parseDouble(details[6]), details[2],
+                Integer.parseInt(details[5]), Double.parseDouble(details[6]), details[2], details[6],
                 Boolean.parseBoolean(details[7]), Boolean.parseBoolean(details[8]), Boolean.parseBoolean(details[9])
         );
     }

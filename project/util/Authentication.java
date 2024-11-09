@@ -76,6 +76,8 @@ public class Authentication {
                 System.out.println("Invalid email format. Please try again.");
             }
         }
+        System.out.print("Contact: ");
+        String contact = scanner.nextLine();
         String uniqueID = java.util.UUID.randomUUID().toString().substring(0, 12);
         System.out.println("\n(Don't forget UID, please save)\nGenerated Unique ID: " + uniqueID);
 
@@ -160,5 +162,9 @@ public class Authentication {
         } else {
             passwords.add(newPassword); // Add the password if the list is empty
         }
+    }
+
+    public void getContact() {
+
     }
 }   

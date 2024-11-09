@@ -112,6 +112,8 @@ public class Main {
         String firstName = scanner.nextLine();
         System.out.print("Employee Surname Name: ");
         String lastSurname = scanner.nextLine();
+        System.out.print("Contact number: ");
+        String contact = scanner.nextLine();
 
         int id = 0;
         try {
@@ -172,7 +174,7 @@ public class Main {
         boolean pagIbig = scanner.nextLine().equalsIgnoreCase("yes");
 
         if (Auth.authenticate()) {
-            Employee newEmployee = new Employee(firstName, lastSurname, hoursPerDay, id, hoursWorked, hourlyRate, occupation, SSS, philHealth, pagIbig);
+            Employee newEmployee = new Employee(firstName, lastSurname, hoursPerDay, id, hoursWorked, hourlyRate, occupation, contact, SSS, philHealth, pagIbig);
             employees.add(newEmployee);
 
             System.out.printf("\n%65sEmployee added successfully!%n", "");
@@ -217,6 +219,8 @@ public class Main {
         String newLastName = scanner.nextLine();
         System.out.print("UPDATE | Occupation (leave blank to keep current): ");
         String newOccupation = scanner.nextLine();
+        System.out.print("UPDATE | Contact (leave blank to keep current): ");
+        String newContact = scanner.nextLine();
         System.out.print("UPDATE | Hourly Rate (leave blank to keep current): ");
         String newHourlyRate = scanner.nextLine();
         System.out.print("UPDATE | Hours Worked (leave blank to keep current): ");
@@ -233,6 +237,7 @@ public class Main {
             if (!newFirstName.isEmpty()) { employeeToEdit.setFirstName(newFirstName); }
             if (!newLastName.isEmpty()) { employeeToEdit.setLastName(newLastName); }
             if (!newOccupation.isEmpty()) { employeeToEdit.setOccupation(newOccupation); }
+            if (!newContact.isEmpty()) { employeeToEdit.setOccupation(newContact); }
             try {
                 if (!newHourlyRate.isEmpty()) { employeeToEdit.setHourlyRate(Double.parseDouble(newHourlyRate)); }
             } catch (NumberFormatException e) {
@@ -490,9 +495,10 @@ public class Main {
                             Integer.parseInt(details[4]),  // hoursWorked
                             Double.parseDouble(details[5]),// hourlyRate
                             details[6],                    // occupation
-                            Boolean.parseBoolean(details[7]), // SSS
-                            Boolean.parseBoolean(details[8]), // PhilHealth
-                            Boolean.parseBoolean(details[9])  // PagIbig
+                            details[7],                    // contact
+                            Boolean.parseBoolean(details[8]), // SSS
+                            Boolean.parseBoolean(details[9]), // PhilHealth
+                            Boolean.parseBoolean(details[10])  // PagIbig
                         );
                         
                         employees.add(employee); // Add loaded employee to list
