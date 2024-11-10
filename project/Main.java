@@ -48,7 +48,7 @@ public class Main {
                     viewEmployees();
                     break;
                 case 5:
-                	updateEmployeeBenefits();
+                    updateEmployeeBenefits();
                     break;
                 case 6:
                     System.out.println("\nReturning to the Program Main Menu.");
@@ -90,7 +90,7 @@ public class Main {
                     viewPaySlip();
                     break;
                 case 4:
-                	viewEmployeeBenefits();
+                    viewEmployeeBenefits();
                     break;
                 case 5: 
                     employersInfo();
