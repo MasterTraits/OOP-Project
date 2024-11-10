@@ -27,7 +27,8 @@ public class Main {
             System.out.printf("\t2. Remove Employee%n");
             System.out.printf("\t3. Update Employee%n");
             System.out.printf("\t4. View Employees%n");
-            System.out.printf("\t5. Log-out%n");
+            System.out.printf("\t5. Update Employees Benefits%n");
+            System.out.printf("\t6. Log-out%n");
 
             // Get the answer for Menu
             System.out.print("\nAnswer: ");
@@ -47,7 +48,7 @@ public class Main {
                     viewEmployees();
                     break;
                 case 5:
-                    // "Your transparency as an employer."
+                	updateEmployeeBenefits();
                     break;
                 case 6:
                     System.out.println("\nReturning to the Program Main Menu.");
@@ -89,7 +90,7 @@ public class Main {
                     viewPaySlip();
                     break;
                 case 4:
-                    // "Employer's Transparency."
+                	viewEmployeeBenefits();
                     break;
                 case 5: 
                     // "Contact Information of Employer"
@@ -375,11 +376,57 @@ public class Main {
             System.out.printf("PhilHealth: %s%n", employeeToView.getPhilHealth() ? "True" : "No");
             System.out.printf("Pag-IBIG: %s%n", employeeToView.getPagIbig() ? "True" : "No");
             System.out.printf("Total Salary: ₱%.2f%n", employeeToView.calculateSalary());
-            System.out.println("");
+            System.out.println(" ");
         } else {
             System.out.println("Employee not found.");
         }
     }
+    
+    // Employee Update Benefits Function
+    private static void updateEmployeeBenefits() {
+        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
+        System.out.print("Enter Employee ID to update benefits: ");
+        int employeeId = scanner.nextInt();
+        scanner.nextLine();  // Consume the newline character
+
+        Employee employeeToEdit = null;
+        for (Employee employee : employees) {
+            if (employee.getId() == employeeId) {
+                employeeToEdit = employee;
+                break;
+            }
+        }
+
+        if (employeeToEdit != null) {
+            System.out.println("Updating benefits for " + employeeToEdit.getFirstName() + " " + employeeToEdit.getLastName());
+
+            // Update SSS
+            System.out.print("Update SSS (Date/False, leave blank to keep current): ");
+            String newSSS = scanner.nextLine();
+            if (!newSSS.isEmpty()) {
+                employeeToEdit.setSSS(Boolean.parseBoolean(newSSS));
+            }
+
+            // Update PhilHealth
+            System.out.print("Update PhilHealth (Date/False, leave blank to keep current): ");
+            String newPhilHealth = scanner.nextLine();
+            if (!newPhilHealth.isEmpty()) {
+                employeeToEdit.setPhilHealth(Boolean.parseBoolean(newPhilHealth));
+            }
+
+            // Update Pag-IBIG
+            System.out.print("Update Pag-IBIG (Date/False, leave blank to keep current): ");
+            String newPagIbig = scanner.nextLine();
+            if (!newPagIbig.isEmpty()) {
+                employeeToEdit.setPagIbig(Boolean.parseBoolean(newPagIbig));
+            }
+
+            System.out.printf("\n%65sEmployee benefits updated successfully!%n", "");
+        } else {
+            System.out.println("Employee not found.");
+        }
+    }
+
 
     private static void requestLeave() {
         System.out.print("Enter type of leave: ");
@@ -390,6 +437,36 @@ public class Main {
         int days = scanner.nextInt(); scanner.nextLine();
 
     }
+    
+ // Employee View Benefits Function (with payment status)
+    private static void viewEmployeeBenefits() {
+        System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
+        System.out.print("Enter Employee ID: ");
+        int employeeId = scanner.nextInt();
+        scanner.nextLine();  // Consume the newline character
+
+        Employee employeeToView = null;
+        for (Employee employee : employees) {
+            if (employee.getId() == employeeId) {
+                employeeToView = employee;
+                break;
+            }
+        }
+
+        if (employeeToView != null) {
+            System.out.println("Viewing benefits for " + employeeToView.getFirstName() + " " + employeeToView.getLastName());
+
+            // Display the updated benefits
+            System.out.printf("SSS: %s | Paid: %s%n", employeeToView.getSSS() ? "True" : "No", employeeToView.getSSS() ? "Yes" : "No");
+            System.out.printf("PhilHealth: %s | Paid: %s%n", employeeToView.getPhilHealth() ? "True" : "No", employeeToView.getPhilHealth() ? "Yes" : "No");
+            System.out.printf("Pag-IBIG: %s | Paid: %s%n", employeeToView.getPagIbig() ? "True" : "No", employeeToView.getPagIbig() ? "Yes" : "No");
+
+            System.out.println(" ");
+        } else {
+            System.out.println("Employee not found.");
+        }
+    }
+
 
 
     /********************************************************** PROGRAM RUN ***************************************************************/       
@@ -479,42 +556,40 @@ public class Main {
 
         // Load employees from file at the start of the program
         private static void loadEmployeesFromFile() {
-    File file = new File(FILE_NAME);
+            File file = new File(FILE_NAME);
 
-    if (file.exists()) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] details = line.split(", "); // Split by comma and space (matching toString format)
+            if (file.exists()) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] details = line.split(", "); // Split by comma and space (matching toString format)
 
-                if (details.length == 11) {  // Ensure the correct number of details
-                    Employee employee = new Employee(
-                        details[0],                    // firstName
-                        details[1],                    // lastName
-                        Integer.parseInt(details[2]),  // hoursPerDay
-                        Integer.parseInt(details[3]),  // id
-                        Integer.parseInt(details[4]),  // hoursWorked
-                        Double.parseDouble(details[5]),// hourlyRate
-                        details[6],                    // occupation
-                        details[7],                    // contact
-                        Boolean.parseBoolean(details[8]), // SSS
-                        Boolean.parseBoolean(details[9]), // PhilHealth
-                        Boolean.parseBoolean(details[10])  // PagIbig
-                    );
-                    employees.add(employee); // Add loaded employee to the list
-                } else {
-                    System.out.println("Invalid data format in file.");
+                        if (details.length == 11) {  // Ensure the correct number of details
+                            Employee employee = new Employee(
+                                details[0],                    // firstName
+                                details[1],                    // lastName
+                                Integer.parseInt(details[2]),  // hoursPerDay
+                                Integer.parseInt(details[3]),  // id
+                                Integer.parseInt(details[4]),  // hoursWorked
+                                Double.parseDouble(details[5]),// hourlyRate
+                                details[6],                    // occupation
+                                details[7],                    // contact
+                                Boolean.parseBoolean(details[8]), // SSS
+                                Boolean.parseBoolean(details[9]), // PhilHealth
+                                Boolean.parseBoolean(details[10])  // PagIbig
+                            );
+                            employees.add(employee); // Add loaded employee to the list
+                        } else {
+                            System.out.println("Invalid data format in file.");
+                        }
+                    }
+                    System.out.println("Employee data loaded successfully from file.");
+                } catch (IOException | NumberFormatException e) {
+                    System.out.println("Error loading employee data from file: " + e.getMessage());
                 }
+            } else {
+                System.out.println("No existing file found. Starting with an empty employee list.");
             }
-            System.out.println("Employee data loaded successfully from file.");
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Error loading employee data from file: " + e.getMessage());
         }
-    } else {
-        System.out.println("No existing file found. Starting with an empty employee list.");
-    }
-}
 
 }
-
-
