@@ -94,7 +94,8 @@ public class Main {
                 case 5: 
                     // "Contact Information of Employer"
                 case 6:
-                    // "Request for Leave"
+                    requestLeave();
+                    break;
                 case 7:
                     System.out.println("\nReturning to the Program Main Menu.");
                     break;
