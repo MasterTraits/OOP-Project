@@ -93,7 +93,8 @@ public class Main {
                 	viewEmployeeBenefits();
                     break;
                 case 5: 
-                    // "Contact Information of Employer"
+                    employersInfo();
+                    break;
                 case 6:
                     requestLeave();
                     break;
@@ -318,6 +319,12 @@ public class Main {
         }
     }
     
+    private static void employersInfo() {
+    	System.out.println("Employer's Name: " + Authentication.firstName + Authentication.lastName);
+    	System.out.println("Employer's Email: " + Auth.getEmail());
+    	System.out.println("Employer's Contact Number: " + Auth.getContact());
+    }
+ 
     // EMPLOYEE FUNCTIONS 
     private static void viewProfile() {
         System.out.printf("%20s---------------------------------------------------------------------------------------------------------------------------------%n", "");
