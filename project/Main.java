@@ -479,39 +479,42 @@ public class Main {
 
         // Load employees from file at the start of the program
         private static void loadEmployeesFromFile() {
-            File file = new File(FILE_NAME);
+    File file = new File(FILE_NAME);
 
-            if (file.exists()) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        String[] details = line.split(", "); // Assuming toString() format matches this delimiter
-                        
-                        // Adjust this part based on the fields of the Employee class
-                        Employee employee = new Employee(
-                            details[0],                    // firstName
-                            details[1],                    // lastSurname
-                            Integer.parseInt(details[2]),  // hoursPerDay
-                            Integer.parseInt(details[3]),  // id
-                            Integer.parseInt(details[4]),  // hoursWorked
-                            Double.parseDouble(details[5]),// hourlyRate
-                            details[6],                    // occupation
-                            details[7],                    // contact
-                            Boolean.parseBoolean(details[8]), // SSS
-                            Boolean.parseBoolean(details[9]), // PhilHealth
-                            Boolean.parseBoolean(details[10])  // PagIbig
-                        );
-                        
-                        employees.add(employee); // Add loaded employee to list
-                    }
-                    System.out.println("Employee data loaded successfully from file.");
-                } catch (IOException | NumberFormatException e) {
-                    System.out.println("Error loading employee data from file.");
+    if (file.exists()) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] details = line.split(", "); // Split by comma and space (matching toString format)
+
+                if (details.length == 11) {  // Ensure the correct number of details
+                    Employee employee = new Employee(
+                        details[0],                    // firstName
+                        details[1],                    // lastName
+                        Integer.parseInt(details[2]),  // hoursPerDay
+                        Integer.parseInt(details[3]),  // id
+                        Integer.parseInt(details[4]),  // hoursWorked
+                        Double.parseDouble(details[5]),// hourlyRate
+                        details[6],                    // occupation
+                        details[7],                    // contact
+                        Boolean.parseBoolean(details[8]), // SSS
+                        Boolean.parseBoolean(details[9]), // PhilHealth
+                        Boolean.parseBoolean(details[10])  // PagIbig
+                    );
+                    employees.add(employee); // Add loaded employee to the list
+                } else {
+                    System.out.println("Invalid data format in file.");
                 }
-            } else {
-                System.out.println("No existing file found. Starting with an empty employee list.");
             }
+            System.out.println("Employee data loaded successfully from file.");
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error loading employee data from file: " + e.getMessage());
+        }
+    } else {
+        System.out.println("No existing file found. Starting with an empty employee list.");
     }
+}
+
 }
 
 
