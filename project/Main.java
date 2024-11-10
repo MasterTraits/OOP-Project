@@ -381,7 +381,7 @@ public class Main {
     }
 
     private static void requestLeave() {
-        System.out.print("Choose type of leave: ");
+        System.out.print("Enter type of leave: ");
         String leaveType = scanner.nextLine();
         System.out.print("Enter reason for leave: ");
         String reason = scanner.nextLine();
