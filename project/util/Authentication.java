@@ -1,13 +1,15 @@
 package project.util;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.UUID;
 
-// Create relationaship between Employee and Authentication
+// Create relationship between Employee and Authentication
 // ID number is string and is passed through 
 
 public class Authentication {
     private static ArrayList<String> email = new ArrayList<String>();
     private static ArrayList<String> passwords = new ArrayList<String>();
+    private static ArrayList<String> contacts = new ArrayList<String>();  // Added contact list
     private static Scanner scanner = new Scanner(System.in);
     private static boolean registerAs;
     public static String firstName;
@@ -78,7 +80,8 @@ public class Authentication {
         }
         System.out.print("Contact: ");
         String contact = scanner.nextLine();
-        String uniqueID = java.util.UUID.randomUUID().toString().substring(0, 12);
+        contacts.add(contact);  // Add contact information to the list
+        String uniqueID = UUID.randomUUID().toString().substring(0, 12);
         System.out.println("\n(Don't forget UID, please save)\nGenerated Unique ID: " + uniqueID);
 
         // Use console if available for password, otherwise fallback to scanner
@@ -164,7 +167,10 @@ public class Authentication {
         }
     }
 
-    public void getContact() {
-
+    public String getContact() {  // Fixed method to return contact information
+        if (!contacts.isEmpty()) {
+            return contacts.get(0);  // Return the first contact in the list
+        }
+        return null;  // Or return an empty string or a default value
     }
-}   
+}
