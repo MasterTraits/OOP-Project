@@ -617,57 +617,72 @@ public class Main {
 }
 
     // ----------------------------------------------------------------- FOR FILE ------------------------------------------------------------------
-        private static void saveEmployeesToFile() {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-                for (Employee employee : employees) {
-                    writer.write(employee.toString()); // Assuming toString() is in a consistent format.
-                    writer.newLine();
-                }
-                System.out.printf(ANSI_GREEN + "\n%50s✦ ✧ ✦ Employee data saved to file successfully ✦ ✧ ✦" + ANSI_RESET, "");
-                System.out.println("");
-            } catch (IOException e) {
-                System.out.printf(ANSI_RED + "\n%50s⚠ Error saving employee data to file. ⚠" + ANSI_RESET,"");
+    private static void saveEmployeesToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (Employee employee : employees) {
+                // Adjust this to output employee data in CSV format (single line)
+                writer.write(String.join(", ",
+                    employee.getFirstName(),
+                    employee.getLastName(),
+                    String.valueOf(employee.getHoursPerDay()),
+                    String.valueOf(employee.getId()),
+                    String.valueOf(employee.getHoursWorked()),
+                    String.valueOf(employee.getHourlyRate()),
+                    employee.getOccupation(),
+                    employee.getContact(),
+                    String.valueOf(employee.getSSS()),
+                    String.valueOf(employee.getPhilHealth()),
+                    String.valueOf(employee.getPagIbig())
+                ));
+                writer.newLine(); // Ensure a new line after each employee entry
             }
+            System.out.println("Employee data saved successfully!");
+        } catch (IOException e) {
+            System.out.println("Error saving employee data to file: " + e.getMessage());
         }
+    }
 
-        // Load employees from file at the start of the program
-        private static void loadEmployeesFromFile() {
-            File file = new File(FILE_NAME);
 
-            if (file.exists()) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        String[] details = line.split(", "); // Split by comma and space (matching toString format)
 
-                        if (details.length == 10) {  // Ensure the correct number of details
-                            Employee employee = new Employee(
-                                details[0],                    // firstName
-                                details[1],                    // lastName
-                                Integer.parseInt(details[2]),  // hoursPerDay
-                                Integer.parseInt(details[3]),  // id
-                                Integer.parseInt(details[4]),  // hoursWorked
-                                Double.parseDouble(details[5]),// hourlyRate
-                                details[6],                    // occupation
-                                details[7],                    // contact
-                                Boolean.parseBoolean(details[8]), // SSS
-                                Boolean.parseBoolean(details[9]), // PhilHealth
-                                Boolean.parseBoolean(details[10])  // PagIbig
-                            );
-                            employees.add(employee); // Add loaded employee to the list
-                            System.out.println("Loaded employee: " + employee); // Debug: print loaded employee 
-                        } else {
-                            System.out.printf(ANSI_RED + "\n%60s⚠ Invalid data format in file. ⚠" + ANSI_RESET,"");
-                        }
+
+    // Load employees from file at the start of the program
+    private static void loadEmployeesFromFile() {
+        File file = new File(FILE_NAME);
+
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                 
+
+                    // Split by comma without space after it, and trim any extra spaces
+                    String[] details = line.split(",\\s*");  // Adjust split to handle no space after comma
+
+                    if (details.length == 11) {  // Ensure correct number of details
+                        Employee employee = new Employee(
+                            details[0],                    // firstName
+                            details[1],                    // lastName
+                            Integer.parseInt(details[2]),  // hoursPerDay
+                            Integer.parseInt(details[3]),  // id
+                            Integer.parseInt(details[4]),  // hoursWorked
+                            Double.parseDouble(details[5]),// hourlyRate
+                            details[6],                    // occupation
+                            details[7],                    // contact
+                            Boolean.parseBoolean(details[8]), // SSS
+                            Boolean.parseBoolean(details[9]), // PhilHealth
+                            Boolean.parseBoolean(details[10]) // PagIbig
+                        );
+                        employees.add(employee); // Add to list
+                    } else {
+                        System.out.println("⚠ Invalid data format in file.");
                     }
-                    System.out.printf(ANSI_GREEN + "\n%50s✦ ✧ ✦ Employee data loaded successfully from file ✦ ✧ ✦" + ANSI_RESET,"");
-                    System.out.println("");
-                } catch (IOException | NumberFormatException e) {
-                    System.out.printf("\n%50sError loading employee data from file: ","" + e.getMessage());
                 }
-            } else {
-                System.out.println("");
-                System.out.printf(ANSI_RED +"\n%40s ⚠ No existing file found. Starting with an empty employee list ⚠ " + ANSI_RESET,"");
+                System.out.println("✦ ✧ ✦ Employee data loaded successfully from file ✦ ✧ ✦");
+            } catch (IOException | NumberFormatException e) {
+                System.out.println("Error loading employee data from file: " + e.getMessage());
             }
+        } else {
+            System.out.println("⚠ No existing file found. Starting with an empty employee list.");
         }
+    }
 }
