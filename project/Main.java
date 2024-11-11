@@ -418,7 +418,7 @@ public class Main {
         System.out.print("UPDATE | Password (leave blank to keep current): ");
         String newPassword = scanner.nextLine();
 
-        if (Auth.authenticate()) {
+        if (Auth.authenticateEmployer()) {
             if (!newFirstName.isEmpty()) {
                 Authentication.firstName = newFirstName;
             }

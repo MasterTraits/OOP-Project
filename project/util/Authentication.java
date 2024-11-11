@@ -202,6 +202,26 @@ public class Authentication {
         return false;
     }
 
+    public boolean authenticateEmployer() {
+        String password = "";
+        if (System.console() != null) {
+            char[] passwordArray = System.console().readPassword("\nConfirm action (Your password): ");
+            password = new String(passwordArray);
+        } else {
+            System.out.print("Confirm action (Your password): ");
+            password = scanner.nextLine(); // Fallback if console is unavailable
+        }
+
+        for (int i = 0; i < passwords.size(); i++) {
+            if (password.equals(passwords.get(i))) {
+                return true;
+            }
+        }
+
+        System.out.printf(ANSI_RED + "%65s⚠ Wrong password. Try again ⚠" + ANSI_RESET, "");
+        return false;
+    }
+
     public boolean getLoginAs() {
         for (int i = 0; i < email.size(); i++) {
             if (EmailInput.equals(email.get(i)) && password.equals(passwords.get(i))) {  
