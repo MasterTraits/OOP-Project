@@ -15,8 +15,16 @@ public class Authentication {
     public static String firstName;
     public static String lastName;
 
+    public static final String ANSI_RESET = "\u001B[0m";            // Declaring ANSI_RESET so that we can reset the color 
+    public static final String ANSI_RED = "\u001B[31m";             // Red
+    public static final String ANSI_GREEN = "\u001B[32m";           // Green
+    public static final String ANSI_YELLOW = "\u001B[33m";          // Yellow
+
+
     public boolean login() {
         // PRESET CREDENTIALS
+        email.add("sample@gmail.com");  
+        passwords.add("1"); 
         email.add("emmanuelfabella606@gmail.com");  
         passwords.add("admin"); 
         //////////////////////////////////////////////////
@@ -37,35 +45,34 @@ public class Authentication {
         // Loop through email and passwords to authenticate
         for (int i = 0; i < email.size(); i++) {
             if (username.equals(email.get(i)) && password.equals(passwords.get(i))) {
-                System.out.println("Login successful!");
-                return true;
+            System.out.print(ANSI_GREEN + "\n✦ ✧ ✦ Login successful! ✦ ✧ ✦" + ANSI_RESET);                return true;
             }
         }
 
         // Display error message after all credentials are checked
-        System.out.println("Wrong credentials. Try again.");
-        return false;
+            System.out.printf(ANSI_YELLOW + "%70s⚠ Wrong credentials. Try again. ⚠" + ANSI_RESET,"");
+            return false;
     }
 
     public boolean register() {
-        System.out.printf("\n\n%70sREGISTRATION%n", "");
-        System.out.printf("%3sREGISTER AS:%n", "");
+        System.out.printf(ANSI_GREEN + "\n%70sREGISTRATION%n" + ANSI_RESET, "");
+        System.out.printf(ANSI_GREEN + "\n\n%3sREGISTER AS:%n" + ANSI_RESET, "");
         System.out.printf("\t1. Employee");
         System.out.printf("\t2. Employer ");
-        System.out.print("\n\nAnswer: ");
+        System.out.print(ANSI_GREEN + "\n\n⊳ Answer: " + ANSI_RESET);
         this.registerAs = scanner.nextInt() == 1 ? true : false; scanner.nextLine();
         if (registerAs) {
-            System.out.println("\nEmployee Registration\n----------------------");
+            System.out.println("\nEmployee Registration\n························································");
         } else {
-            System.out.println("\nEmployer Registration\n----------------------");
+            System.out.println("\nEmployer Registration\n························································");
             System.out.print("Enter Employer Identification Number (EIN): ");
             String ein = scanner.nextLine();
             while (ein.length() != 9 || !ein.matches("\\d+")) {
-                System.out.println("Invalid EIN format. Please enter a 9-digit number.");
+                System.out.println(ANSI_YELLOW + "Invalid EIN format. Please enter a 9-digit number." + ANSI_RESET);
                 System.out.print("Enter Employer Identification Number (EIN): ");
                 ein = scanner.nextLine();
             }
-            System.out.println("EIN successfully recorded.");
+            System.out.println(ANSI_GREEN + "EIN successfully recorded." + ANSI_RESET);
         }
         System.out.print("First Name: ");
         firstName = scanner.nextLine();   
@@ -73,17 +80,17 @@ public class Authentication {
         lastName = scanner.nextLine();  
         String userEmail;
         while (true) {
-            System.out.print("Email:\t   ");
+            System.out.print("Email: ");
             userEmail = scanner.nextLine();
             if (userEmail.contains("@") && userEmail.contains(".")) {
                 if (email.contains(userEmail)) {
-                    System.out.println("Email already exists. Please try again.");
+                    System.out.println(ANSI_YELLOW + "Email already exists. Please try again." + ANSI_RESET);
                 } else {
                     email.add(userEmail);
                     break;
                 }
             } else {
-                System.out.println("Invalid email format. Please try again.");
+                System.out.println(ANSI_YELLOW + " ⚠ Invalid email format. Please try again ⚠" + ANSI_RESET);
             }
         }
         System.out.print("Contact: ");
@@ -101,7 +108,7 @@ public class Authentication {
             String confirmPassword = new String(confirmPasswordArray);
 
             if (!password.equals(confirmPassword)) {
-                System.out.println("Password does not match. Try again.");
+                System.out.println(ANSI_YELLOW + " ⚠ Password does not match. Try again ⚠" + ANSI_RESET);
                 return false;
             }
         } else {
@@ -109,15 +116,16 @@ public class Authentication {
             password = scanner.nextLine();
             System.out.print("Confirm password: ");
             String confirmPassword = scanner.nextLine();
+            passwords.add(confirmPassword);
 
             if (!password.equals(confirmPassword)) {
-                System.out.println("Password does not match. Try again.");
+                System.out.printf(ANSI_YELLOW + "%70s⚠ Password does not match. Try again ⚠" + ANSI_RESET,"");
                 return false;
             }
         }
 
         passwords.add(password);
-        System.out.println("Registration successful!");
+        System.out.println(ANSI_GREEN + "✦ ✧ ✦ Registration successful! ✦ ✧ ✦" + ANSI_RESET);
         return true;
     }
 
@@ -137,7 +145,7 @@ public class Authentication {
             }
         }
 
-        System.out.println("Wrong password. Try again.");
+        System.out.println(ANSI_YELLOW + " ⚠ Wrong password. Try again ⚠" + ANSI_RESET);
         return false;
     }
 
