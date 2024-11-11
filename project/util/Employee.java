@@ -25,14 +25,18 @@ public class Employee {
         double salary = (((hoursWorked + overtimeHours) - absences) - tardiness) * hourlyRate;
         double deductions = 0;
 
+        if (salary > 20833) {
+            deductions += salary * 0.15; // If salary exceeds 20,833 pesos, Income tax of 15% is applied 
+        }
+
         if (this.SSS) {
-            deductions += salary * 0.022; // 2.2% deduction for SSS
+            deductions += salary * 0.045; // 4.5% deduction for SSS
         }
         if (this.philHealth) {
-            deductions += salary * 0.01; // 1% deduction for PhilHealth
+            deductions += salary * 0.0225; // 2.25% deduction for PhilHealth
         }
         if (this.pagIbig) {
-            deductions += salary * 0.045; // 4.5% deduction for PagIbig
+            deductions += 5000 * 0.02; // 2% deduction for PagIbig
         }
 
         return salary - deductions;
