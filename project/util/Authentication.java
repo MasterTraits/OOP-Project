@@ -58,7 +58,7 @@ public class Authentication {
         }
 
         // Display error message after all credentials are checked
-        System.out.printf(ANSI_RED + "%65s⚠ Wrong credentials. Try again. ⚠" + ANSI_RESET, "");
+        System.out.printf(ANSI_RED + "%60s⚠ Wrong credentials. Try again. ⚠" + ANSI_RESET, "");
         return false;
     }
 
@@ -102,7 +102,7 @@ public class Authentication {
                         break;
                     }
                 } else {
-                    System.out.printf(ANSI_RED + "%65s⚠ Invalid email format. Please try again ⚠\n" + ANSI_RESET, "");
+                    System.out.printf(ANSI_RED + "%60s⚠ Invalid email format. Please try again ⚠\n" + ANSI_RESET, "");
                 }
             }
         } else {
@@ -116,7 +116,7 @@ public class Authentication {
                         EmployerEmail.add(userEmail);
                         break;
                     }
-                } else { System.out.printf(ANSI_RED + "%65s⚠ Invalid email format. Please try again ⚠\n" + ANSI_RESET, ""); }
+                } else { System.out.printf(ANSI_RED + "%60s⚠ Invalid email format. Please try again ⚠\n" + ANSI_RESET, ""); }
             }
         }
 

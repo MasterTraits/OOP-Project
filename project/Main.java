@@ -27,7 +27,7 @@ public class Main {
         while (adminAnswer < 6) {
         	System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n", "");
             // Display Menu options
-            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n" + ANSI_RESET, "", Authentication.firstName, Authentication.lastName);
+            System.out.printf(ANSI_BLUE + "\n%65sＷｅｌｃｏｍｅ！ %s %s%n" + ANSI_RESET, "", Authentication.firstName, Authentication.lastName);
             System.out.printf(ANSI_GREEN + "\n\n%3sVirtuoso Main Menu:%n" + ANSI_RESET, "");
             System.out.printf("\t1. Add Employee%n");
             System.out.printf("\t2. Remove Employee%n");
@@ -42,7 +42,7 @@ public class Main {
             try {
                 adminAnswer = scanner.nextInt();
             } catch (Exception e) {
-                System.out.printf(ANSI_RED + "\n%65s⚠ Invalid Input! Please enter a number. ⚠" + ANSI_RESET, "");
+                System.out.printf(ANSI_RED + "\n%60s⚠ Invalid Input! Please enter a number. ⚠" + ANSI_RESET, "");
                 scanner.nextLine(); // Clear the invalid input
                 adminAnswer = 0; // Set a default value to continue the loop
             }
@@ -78,7 +78,7 @@ public class Main {
         while (employeeAnswer < 7) {
         	System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n", "");
             // Display Menu options
-            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n"+ ANSI_RESET, "", Authentication.firstName, Authentication.lastName);
+            System.out.printf(ANSI_BLUE + "\n%65sＷｅｌｃｏｍｅ！ %s %s%n"+ ANSI_RESET, "", Authentication.firstName, Authentication.lastName);
             System.out.printf(ANSI_GREEN + "\n\n%3sVirtuoso Main Menu:%n" + ANSI_RESET, "");
             System.out.printf("\t1. View Profile%n");
             System.out.printf("\t2. Update Profile%n");
@@ -93,7 +93,7 @@ public class Main {
             try {
                 employeeAnswer = scanner.nextInt();
             } catch (Exception e) {
-                System.out.printf(ANSI_RED + "\n%65s⚠ Invalid Input! Please enter a number. ⚠" + ANSI_RESET, "");
+                System.out.printf(ANSI_RED + "\n%60s⚠ Invalid Input! Please enter a number. ⚠" + ANSI_RESET, "");
                 scanner.nextLine(); // Clear the invalid input
                 employeeAnswer = 0; // Set a default value to continue the loop
             }
@@ -244,7 +244,7 @@ public class Main {
     // --------------------------------------------------------------- UPDATE EMPLOYEE -----------------------------------------------------------------------
     private static void updateEmployeePartTime() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-        System.out.printf(ANSI_BLUE + "%53s》》》◆ Ｕｐｄａｔｅ  Ｅｍｐｌｏｙｅｅ  Ｄｅｔａｉｌｓ ◆ 《《《%n"+ ANSI_RESET, "");
+        System.out.printf(ANSI_BLUE + "%45s》》》◆ Ｕｐｄａｔｅ  Ｅｍｐｌｏｙｅｅ  Ｄｅｔａｉｌｓ ◆ 《《《%n"+ ANSI_RESET, "");
         
         int id = 0;
         while (true) {
@@ -328,7 +328,7 @@ public class Main {
             }
 
             if (invalidOperations > 0) {
-                System.out.printf(ANSI_RED + "\n%50s⚠ %d Updated, some invalid operations. Please check your inputs. ⚠%n" + ANSI_RESET, "", invalidOperations);
+                System.out.printf(ANSI_RED + "\n%45s⚠ %d Updated, some invalid operations. Please check your inputs. ⚠%n" + ANSI_RESET, "", invalidOperations);
             } else {
                 System.out.printf(ANSI_GREEN + "\n%60s✦ ✧ ✦ Employee updated successfully ✦ ✧ ✦%n" + ANSI_RESET, ""); invalidOperations++;
             }
@@ -393,7 +393,8 @@ public class Main {
     
     private static void employersInfo() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-    	System.out.println("Employer's Name: " + Authentication.firstName + Authentication.lastName);
+    	System.out.printf(ANSI_BLUE + "%50s 》》》◆ Ｅｍｐｌｏｙｅｒｓ  Ｉｎｆｏｒｍａｔｉｏｎ ◆ 《《《%n"+ ANSI_RESET, "");
+        System.out.println("\n\nEmployer's Name: " + Authentication.firstName + Authentication.lastName);
     	System.out.println("Employer's Email: " + Auth.getEmail());
     	System.out.println("Employer's Contact Number: " + Auth.getContact());
     }
@@ -408,7 +409,7 @@ public class Main {
 
     private static void updateProfile() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-        System.out.printf(ANSI_BLUE + "%53s》》》◆ Ｕｐｄａｔｅ  Ｐｒｏｆｉｌｅ  Ｄｅｔａｉｌｓ ◆ 《《《%n" + ANSI_RESET, "");
+        System.out.printf(ANSI_BLUE + "%45s》》》◆ Ｕｐｄａｔｅ  Ｐｒｏｆｉｌｅ  Ｄｅｔａｉｌｓ ◆ 《《《%n" + ANSI_RESET, "");
         System.out.print("\n\nUPDATE | First Name (leave blank to keep current): ");
         String newFirstName = scanner.nextLine(); scanner.nextLine();
         System.out.print("UPDATE | Last Name (leave blank to keep current): ");
@@ -431,7 +432,7 @@ public class Main {
             if (!newPassword.isEmpty()) {
                 Auth.setPassword(newPassword);
             }
-            System.out.printf(ANSI_GREEN + "\n%60sProfile ✦ ✧ ✦ updated successfully ✦ ✧ ✦ %n" + ANSI_RESET, "");
+            System.out.printf(ANSI_GREEN + "\n%60s✦ ✧ ✦ Profile updated successfully ✦ ✧ ✦ %n" + ANSI_RESET, "");
         } else {
             System.out.printf(ANSI_RED + "\n%68s⚠ Authentication failed. ⚠" + ANSI_RESET,"");
         }
@@ -439,7 +440,7 @@ public class Main {
 
   private static void viewPaySlip() {
     System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-
+    System.out.printf(ANSI_BLUE + "%60s 》》》◆ Ｐａｙ Ｓｌｉｐ ◆ 《《《%n\n\n"+ ANSI_RESET, "");
    
     for (Employee employee : employees) {
         System.out.print(employee.toString() + "\n");
@@ -454,7 +455,7 @@ public class Main {
     // Employee Update Benefits Function
     private static void updateEmployeeBenefits() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-        System.out.print("Enter Employee ID to update benefits: ");
+        System.out.printf(ANSI_BLUE + "%50s 》》》◆ Ｕｐｄａｔｅ Ｅｍｐｌｏｙｅｅｓ Ｂｅｎｅｆｉｔｓ ◆ 《《《%n"+ ANSI_RESET, ""); 
         int employeeId = 0;
         while (true) {
             try {
@@ -500,7 +501,7 @@ public class Main {
                 employeeToEdit.setPagIbig(Boolean.parseBoolean(newPagIbig));
             }
 
-            System.out.printf(ANSI_GREEN + "\n%60s ✦ ✧ ✦ Employee benefits updated successfully ✦ ✧ ✦ %n" + ANSI_RESET, "");
+            System.out.printf(ANSI_GREEN + "\n%55s ✦ ✧ ✦ Employee benefits updated successfully ✦ ✧ ✦ %n" + ANSI_RESET, "");
         } else {
             System.out.printf(ANSI_RED + "\n%65s⚠ Employee not found. ⚠" + ANSI_RESET,"");
         }
@@ -508,9 +509,10 @@ public class Main {
 
     
     private static void requestLeave() {
-        System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n","");
-        System.out.print("Enter type of leave: ");
-        String leaveType = scanner.nextLine();
+        System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n","");
+        System.out.printf(ANSI_BLUE + "%60s 》》》◆ Ｌｅａｖｅ Ｒｅｑｕｅｓｔ ◆ 《《《%n"+ ANSI_RESET, "");
+        System.out.print("\n\nEnter type of leave: ");
+        String leaveType = scanner.nextLine(); scanner.nextLine();
         System.out.print("Enter reason for leave: ");
         String reason = scanner.nextLine();
         int days = 0;
@@ -522,7 +524,7 @@ public class Main {
                 break;
             } catch (Exception e) {
                 System.out.printf(
-                        ANSI_RED + "\n%65s⚠ Invalid input! Please enter a valid number of days. ⚠" + ANSI_RESET, "");
+                        ANSI_RED + "\n%55s⚠ Invalid input! Please enter a valid number of days. ⚠\n" + ANSI_RESET, "");
                 scanner.nextLine(); // Clear the invalid input
             }
         }
@@ -533,10 +535,10 @@ public class Main {
    private static void viewEmployeeBenefits() {
     
     System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-
+    System.out.printf(ANSI_BLUE + "%50s 》》》◆ Ｅｍｐｌｏｙｅｅ Ｂｅｎｅｆｉｔｓ ◆ 《《《%n"+ ANSI_RESET, "");
    
     for (Employee employee : employees) {
-        System.out.println("Viewing benefits for " + employee.getFirstName() + " " + employee.getLastName());
+        System.out.println("\n\nViewing benefits for " + employee.getFirstName() + " " + employee.getLastName());
 
         
         System.out.printf("\nSSS: %s | Paid: %s%n", employee.getSSS() ? "True" : "No", employee.getSSS() ? "Yes" : "No");
@@ -567,7 +569,7 @@ public class Main {
                 System.out.print(ANSI_GREEN + "\n⊳ Answer: " + ANSI_RESET);
                 answer = scanner.nextInt();                
             } catch (Exception e) {
-                System.out.printf(ANSI_RED + "\n%65s⚠ Invalid Input! Please enter a number. ⚠" + ANSI_RESET,"");
+                System.out.printf(ANSI_RED + "\n%60s⚠ Invalid Input! Please enter a number. ⚠" + ANSI_RESET,"");
                 scanner.nextLine();
                 continue;
             }
@@ -610,7 +612,7 @@ public class Main {
                         System.out.println("Returning to the main menu. Thank you!");
                     }
                 default:
-                    System.out.printf(ANSI_RED + "\n%60s⚠ Invalid Answer! ⚠" + ANSI_RESET,"");
+                    System.out.printf(ANSI_RED + "\n%70s⚠ Invalid Answer! ⚠" + ANSI_RESET,"");
                     break; 
     		  }
         }
@@ -636,10 +638,10 @@ public class Main {
                 ));
                 writer.newLine(); // Ensure a new line after each employee entry
             }
-                System.out.printf(ANSI_GREEN + "\n%50s✦ ✧ ✦ Employee data saved to file successfully ✦ ✧ ✦" + ANSI_RESET, "");
+                System.out.printf(ANSI_GREEN + "\n%55s✦ ✧ ✦ Employee data saved to file successfully ✦ ✧ ✦" + ANSI_RESET, "");
                 System.out.println("");
             } catch (IOException e) {
-                System.out.printf(ANSI_RED + "\n%50s⚠ Error saving employee data to file. ⚠" + ANSI_RESET,"");
+                System.out.printf(ANSI_RED + "\n%60s⚠ Error saving employee data to file. ⚠" + ANSI_RESET,"");
             }
         }
 
@@ -674,14 +676,14 @@ public class Main {
                             System.out.printf(ANSI_RED + "\n%60s⚠ Invalid data format in file. ⚠" + ANSI_RESET,"");
                         }
                     }
-                    System.out.printf(ANSI_GREEN + "\n%50s✦ ✧ ✦ Employee data loaded successfully from file ✦ ✧ ✦" + ANSI_RESET,"");
+                    System.out.printf(ANSI_GREEN + "\n%55s✦ ✧ ✦ Employee data loaded successfully from file ✦ ✧ ✦" + ANSI_RESET,"");
                     System.out.println("");
                 } catch (IOException | NumberFormatException e) {
-                    System.out.printf("\n%50sError loading employee data from file: ","" + e.getMessage());
+                    System.out.printf("\n%60sError loading employee data from file: ","" + e.getMessage());
                 }
             } else {
                 System.out.println("");
-                System.out.printf(ANSI_RED +"\n%40s ⚠ No existing file found. Starting with an empty employee list ⚠ " + ANSI_RESET,"");
+                System.out.printf(ANSI_RED +"\n%45s ⚠ No existing file found. Starting with an empty employee list ⚠ " + ANSI_RESET,"");
             }
         }
 }
