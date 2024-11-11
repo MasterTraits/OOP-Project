@@ -181,7 +181,7 @@ public class Authentication {
         return true;
     }
 
-    
+
     public boolean authenticate() {
         String password = "";
         if (System.console() != null) {
@@ -212,7 +212,7 @@ public class Authentication {
             password = scanner.nextLine(); // Fallback if console is unavailable
         }
 
-        for (int i = 0; i < passwords.size(); i++) {
+        for (int i = 0; i < EmployerPassword.size(); i++) {
             if (password.equals(EmployerPassword.get(i))) {
                 return true;
             }
