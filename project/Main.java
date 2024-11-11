@@ -603,9 +603,9 @@ public class Main {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        String[] details = line.split(", "); // Split by comma and space (matching toString format)
+                        String[] details = line.split(", "); // Split by comma and space
 
-                        if (details.length == 11) {  // Ensure the correct number of details
+                        if (details.length == 11) {  // Ensure correct number of details
                             Employee employee = new Employee(
                                 details[0],                    // firstName
                                 details[1],                    // lastName
@@ -617,21 +617,21 @@ public class Main {
                                 details[7],                    // contact
                                 Boolean.parseBoolean(details[8]), // SSS
                                 Boolean.parseBoolean(details[9]), // PhilHealth
-                                Boolean.parseBoolean(details[10])  // PagIbig
+                                Boolean.parseBoolean(details[10]) // PagIbig
                             );
-                            employees.add(employee); // Add loaded employee to the list
+                            employees.add(employee); // Add to list
+                            System.out.println("Loaded employee: " + employee); // Debug: print loaded employee
                         } else {
                             System.out.printf(ANSI_YELLOW + "\n%65s⚠ Invalid data format in file. ⚠" + ANSI_RESET,"");
                         }
                     }
                     System.out.println(ANSI_GREEN + "✦ ✧ ✦ Employee data loaded successfully from file ✦ ✧ ✦" + ANSI_RESET);
-                    System.out.println("");
                 } catch (IOException | NumberFormatException e) {
                     System.out.println("Error loading employee data from file: " + e.getMessage());
                 }
             } else {
                 System.out.println("");
-                System.out.printf(ANSI_YELLOW +"%45s ⚠ No existing file found. Starting with an empty employee list ⚠ " + ANSI_RESET,"");
+                System.out.printf(ANSI_YELLOW + "%45s ⚠ No existing file found. Starting with an empty employee list ⚠ " + ANSI_RESET, "");
             }
         }
 
