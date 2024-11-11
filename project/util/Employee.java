@@ -8,7 +8,7 @@ public class Employee {
     private boolean SSS, philHealth, pagIbig;
 
     public Employee(String firstName, String lastName, int hoursPerDay, int id, int hoursWorked, double hourlyRate,
-            String occupation, String contact, boolean SSS, boolean PhilHealth, boolean PagIbig) {
+            String occupation, String contact, boolean SSS, boolean philHealth, boolean pagIbig) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
