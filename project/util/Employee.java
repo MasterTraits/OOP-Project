@@ -90,12 +90,38 @@ public class Employee {
     }
 
     public static Employee fromString(String line) {
-        String[] details = line.split(", ");
-        return new Employee(
-                details[0], details[1], Integer.parseInt(details[4]), Integer.parseInt(details[3]),
-                Integer.parseInt(details[5]), Double.parseDouble(details[6]), details[2], details[6],
-                Boolean.parseBoolean(details[7]), Boolean.parseBoolean(details[8]), Boolean.parseBoolean(details[9])
-        );
+
+        // Adjust the splitting logic to handle spaces after commas, and trim whitespace for any extra spaces
+        String[] details = line.split(",\\s*");  // Split by comma, handling any number of spaces after commas
+
+        // Check for correct number of details
+        if (details.length != 11) {
+            System.out.println("Invalid line format: Expected 11 fields, but found " + details.length);
+            return null;  // Return null if the format is wrong
+        }
+
+        // Ensure that the first name is correctly extracted
+        System.out.println("First Name: " + details[0]);
+
+        try {
+            // If the format is correct, create and return the Employee object
+            return new Employee(
+                details[0],  // firstName
+                details[1],  // lastName
+                Integer.parseInt(details[2]),  // hoursPerDay
+                Integer.parseInt(details[3]),  // id
+                Integer.parseInt(details[4]),  // hoursWorked
+                Double.parseDouble(details[5]), // hourlyRate
+                details[6],  // occupation
+                details[7],  // contact
+                "Yes".equalsIgnoreCase(details[8]),  // SSS
+                "Yes".equalsIgnoreCase(details[9]),  // PhilHealth
+                "Yes".equalsIgnoreCase(details[10])  // PagIbig
+            );
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing number in line: " + line);
+            return null;
+        }
     }
 
 }
