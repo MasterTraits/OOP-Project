@@ -213,7 +213,7 @@ public class Authentication {
         }
 
         for (int i = 0; i < passwords.size(); i++) {
-            if (password.equals(passwords.get(i))) {
+            if (password.equals(EmployerPassword.get(i))) {
                 return true;
             }
         }

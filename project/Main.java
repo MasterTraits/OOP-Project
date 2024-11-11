@@ -230,7 +230,7 @@ public class Main {
             }
         }
 
-        if (Auth.authenticate()) {
+        if (Auth.authenticateEmployer()) {
             Employee newEmployee = new Employee(firstName, lastSurname, hoursPerDay, id, hoursWorked, hourlyRate, occupation, contact, SSS, philHealth, pagIbig);
             employees.add(newEmployee);
 
@@ -291,7 +291,7 @@ public class Main {
         String newOvertimeHours = scanner.nextLine();
         int invalidOperations = 0;
 
-        if (Auth.authenticate()) {
+        if (Auth.authenticateEmployer()) {
             // IF Statements used to check if the input is empty or not to update the employee
             if (!newFirstName.isEmpty()) { employeeToEdit.setFirstName(newFirstName); }
             if (!newLastName.isEmpty()) { employeeToEdit.setLastName(newLastName); }
@@ -418,7 +418,7 @@ public class Main {
         System.out.print("UPDATE | Password (leave blank to keep current): ");
         String newPassword = scanner.nextLine();
 
-        if (Auth.authenticateEmployer()) {
+        if (Auth.authenticate()) {
             if (!newFirstName.isEmpty()) {
                 Authentication.firstName = newFirstName;
             }
