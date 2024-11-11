@@ -58,6 +58,14 @@ public class Authentication {
             System.out.println("\nEmployee Registration\n----------------------");
         } else {
             System.out.println("\nEmployer Registration\n----------------------");
+            System.out.print("Enter Employer Identification Number (EIN): ");
+            String ein = scanner.nextLine();
+            while (ein.length() != 9 || !ein.matches("\\d+")) {
+                System.out.println("Invalid EIN format. Please enter a 9-digit number.");
+                System.out.print("Enter Employer Identification Number (EIN): ");
+                ein = scanner.nextLine();
+            }
+            System.out.println("EIN successfully recorded.");
         }
         System.out.print("First Name: ");
         firstName = scanner.nextLine();   
