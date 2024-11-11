@@ -64,6 +64,8 @@ public class Employee {
     public String getOccupation() { return occupation; }
     public void setOccupation(String occupation) { this.occupation = occupation; }
 
+    public String getContact() { return contact; }
+
     public boolean getSSS() { return SSS; }
     public void setSSS(boolean SSS) { this.SSS = SSS; }
 
