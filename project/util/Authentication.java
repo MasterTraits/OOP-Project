@@ -69,8 +69,13 @@ public class Authentication {
         System.out.printf("\t2. Employer");
         System.out.printf("\t3. Exit");
         System.out.print(ANSI_GREEN + "\n\n⊳ Answer: " + ANSI_RESET);
-        registerAs = scanner.nextInt() == 1 ? true : false;
-        scanner.nextLine();
+        try {
+            registerAs = scanner.nextInt() == 1 ? true : false;
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println(ANSI_RED + "Invalid input. Please try again." + ANSI_RESET);
+            return false;
+        }
         if (registerAs) {
             System.out.println("\nEmployee Registration");
             System.out.println("························································");
@@ -97,7 +102,7 @@ public class Authentication {
                 userEmail = scanner.nextLine();
                 if (userEmail.contains("@") && userEmail.contains(".")) {
                     if (email.contains(userEmail)) {
-                        System.out.printf(ANSI_RED + "%65sEmail already exists. Please try again." + ANSI_RESET, "");
+                        System.out.printf(ANSI_RED + "%65sEmail already exists. Please try again." + ANSI_RESET + "\n", "");
                     } else {
                         email.add(userEmail);
                         break;
@@ -279,7 +284,7 @@ public class Authentication {
 
     public String getContact() { // Fixed method to return contact information
         if (!contacts.isEmpty()) {
-            return contacts.get(0); // Return the first contact in the list
+            return contacts.get(contacts.size() - 2); // Return the first contact in the list
         }
         return null; // Or return an empty string or a default value
     }

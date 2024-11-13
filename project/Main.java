@@ -393,9 +393,13 @@ public class Main {
     
     private static void employersInfo() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-    	System.out.println("Employer's Name: " + Authentication.firstName + Authentication.lastName);
-    	System.out.println("Employer's Email: " + Auth.getEmail());
-    	System.out.println("Employer's Contact Number: " + Auth.getContact());
+    	System.out.println("Employer's Name: " + Authentication.firstName + " " + Authentication.lastName);
+        try {
+            System.out.println("Employer's Email: " + Auth.getEmployerEmail());
+            System.out.println("Employer's Contact Number: " + Auth.getContact());
+        } catch (Exception e) {
+            System.out.println("No Employer\n");   
+        }
     }
  
     // EMPLOYEE FUNCTIONS 
