@@ -66,7 +66,8 @@ public class Authentication {
         System.out.printf(ANSI_BLUE + "%60s》》》◆ ＲＥＧＩＳＴＲＡＴＩＯＮ ◆ 《《《%n" + ANSI_RESET, "");
         System.out.printf(ANSI_GREEN + "\n\n%3sREGISTER AS:%n" + ANSI_RESET, "");
         System.out.printf("\t1. Employee");
-        System.out.printf("\t2. Employer ");
+        System.out.printf("\t2. Employer");
+        System.out.printf("\t3. Exit");
         System.out.print(ANSI_GREEN + "\n\n⊳ Answer: " + ANSI_RESET);
         registerAs = scanner.nextInt() == 1 ? true : false;
         scanner.nextLine();
