@@ -27,7 +27,7 @@ public class Main {
         while (adminAnswer < 6) {
         	System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n", "");
             // Display Menu options
-            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n" + ANSI_RESET, "", Auth.getFirstname(), Auth.getLastname());
+            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n" + ANSI_RESET, "", Auth.getEFirstname(), Auth.getELastname());
             System.out.printf(ANSI_GREEN + "\n\n%3sVirtuoso Main Menu:%n" + ANSI_RESET, "");
             System.out.printf("\t1. Add Employee%n");
             System.out.printf("\t2. Remove Employee%n");
@@ -393,7 +393,7 @@ public class Main {
     
     private static void employersInfo() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-    	System.out.println("Employer's Name: " + Auth.getFirstname() + " " + Auth.getLastname());
+    	System.out.println("Employer's Name: " + Auth.getEFirstname() + " " + Auth.getELastname());
         try {
             System.out.println("Employer's Email: " + Auth.getEmployerEmail());
             System.out.println("Employer's Contact Number: " + Auth.getContact());

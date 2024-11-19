@@ -15,7 +15,7 @@ public class Authentication {
     private static Scanner scanner = new Scanner(System.in);
     private static boolean registerAs;
     private static String password;
-    public static String firstName, lastName, userEmail, EmailInput;
+    public static String firstName, firstEName, lastEName, lastName, userEmail, EmailInput;
 
     public static final String ANSI_RESET = "\u001B[0m", // Declaring ANSI_RESET so that we can reset the color
                                 ANSI_RED = "\u001B[31m", // Red
@@ -79,6 +79,10 @@ public class Authentication {
         if (registerAs) {
             System.out.println("\nEmployee Registration");
             System.out.println("························································");
+            System.out.print("First Name: ");
+            firstName = scanner.nextLine();
+            System.out.print("Last Name: ");
+            lastName = scanner.nextLine();
         } else {
             System.out.println("\nEmployer Registration");
             System.out.println("························································");
@@ -90,11 +94,12 @@ public class Authentication {
                 ein = scanner.nextLine();
             }
             System.out.println(ANSI_GREEN + "EIN successfully recorded." + ANSI_RESET);
+            System.out.print("First Name: ");
+            firstEName = scanner.nextLine();
+            System.out.print("Last Name: ");
+            lastEName = scanner.nextLine();
         }
-        System.out.print("First Name: ");
-        firstName = scanner.nextLine();
-        System.out.print("Last Name: ");
-        lastName = scanner.nextLine();
+
         userEmail = "";
         if (registerAs) {
             while (true) {
@@ -291,6 +296,10 @@ public class Authentication {
 
     public String getFirstname() { return firstName; }
     public String getLastname() { return lastName; }
+    public String getEFirstname() { return firstEName; }
+    public String getELastname() { return lastEName; }
     public void setFirstName(String Name) { firstName = Name; }
     public void setLastName(String Name) { lastName = Name; }
+    public void setEFirstName(String Name) { firstEName = Name; }
+    public void setELastName(String Name) { lastEName = Name; }
 }
