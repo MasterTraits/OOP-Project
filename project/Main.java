@@ -27,7 +27,7 @@ public class Main {
         while (adminAnswer < 6) {
         	System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n", "");
             // Display Menu options
-            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n" + ANSI_RESET, "", Authentication.firstName, Authentication.lastName);
+            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n" + ANSI_RESET, "", Auth.getFirstname(), Auth.getLastname());
             System.out.printf(ANSI_GREEN + "\n\n%3sVirtuoso Main Menu:%n" + ANSI_RESET, "");
             System.out.printf("\t1. Add Employee%n");
             System.out.printf("\t2. Remove Employee%n");
@@ -78,7 +78,7 @@ public class Main {
         while (employeeAnswer < 7) {
         	System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n", "");
             // Display Menu options
-            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n"+ ANSI_RESET, "", Authentication.firstName, Authentication.lastName);
+            System.out.printf(ANSI_BLUE + "\n%60sＷｅｌｃｏｍｅ！ %s %s%n"+ ANSI_RESET, "", Auth.getFirstname(), Auth.getLastname());
             System.out.printf(ANSI_GREEN + "\n\n%3sVirtuoso Main Menu:%n" + ANSI_RESET, "");
             System.out.printf("\t1. View Profile%n");
             System.out.printf("\t2. Update Profile%n");
@@ -293,8 +293,8 @@ public class Main {
 
         if (Auth.authenticateEmployer()) {
             // IF Statements used to check if the input is empty or not to update the employee
-            if (!newFirstName.isEmpty()) { Authentication.firstName= newFirstName; }
-            if (!newLastName.isEmpty()) { Authentication.lastName = newLastName; }
+            if (!newFirstName.isEmpty()) { Auth.setFirstName(newFirstName); }
+            if (!newLastName.isEmpty()) { Auth.setLastName(newLastName); }
             if (!newOccupation.isEmpty()) { employeeToEdit.setOccupation(newOccupation); }
             if (!newContact.isEmpty()) { employeeToEdit.setOccupation(newContact); }
             try {
@@ -393,7 +393,7 @@ public class Main {
     
     private static void employersInfo() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
-    	System.out.println("Employer's Name: " + Authentication.firstName + " " + Authentication.lastName);
+    	System.out.println("Employer's Name: " + Auth.getFirstname() + " " + Auth.getLastname());
         try {
             System.out.println("Employer's Email: " + Auth.getEmployerEmail());
             System.out.println("Employer's Contact Number: " + Auth.getContact());
@@ -441,19 +441,41 @@ public class Main {
         }
     }
 
-  private static void viewPaySlip() {
-    System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
+    private static void viewPaySlip() {
+        System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
 
-   
-    for (Employee employee : employees) {
-        System.out.print(employee.toString() + "\n");
-        System.out.printf("SSS: %s%n", employee.getSSS() ? "True" : "No");
-        System.out.printf("PhilHealth: %s%n", employee.getPhilHealth() ? "True" : "No");
-        System.out.printf("Pag-IBIG: %s%n", employee.getPagIbig() ? "True" : "No");
-        System.out.printf("Total Salary: ₱%.2f%n", employee.calculateSalary());
-        System.out.println(" ");
+        int employeeId = 0;
+        while (true) {
+            try {
+                System.out.print("Enter Employee ID to view pay slip: ");
+                employeeId = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } catch (Exception e) {
+                System.out.printf(ANSI_RED + "\n%60s⚠ Invalid ID! Please enter a valid number ⚠%n" + ANSI_RESET, "");
+                scanner.nextLine(); // Clear the invalid input
+            }
+        }
+
+        Employee employeeToView = null;
+        for (Employee employee : employees) {
+            if (employee.getId() == employeeId) {
+                employeeToView = employee;
+                break;
+            }
+        }
+
+        if (employeeToView != null) {
+            System.out.print(employeeToView.toString() + "\n");
+            System.out.printf("SSS: %s%n", employeeToView.getSSS() ? "True" : "No");
+            System.out.printf("PhilHealth: %s%n", employeeToView.getPhilHealth() ? "True" : "No");
+            System.out.printf("Pag-IBIG: %s%n", employeeToView.getPagIbig() ? "True" : "No");
+            System.out.printf("Total Salary: ₱%.2f%n", employeeToView.calculateSalary());
+            System.out.println(" ");
+        } else {
+            System.out.printf(ANSI_RED + "\n%65s⚠ Employee not found. ⚠" + ANSI_RESET, "");
+        }
     }
-}
     
     // Employee Update Benefits Function
     private static void updateEmployeeBenefits() {
