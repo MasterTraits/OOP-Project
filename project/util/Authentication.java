@@ -288,4 +288,9 @@ public class Authentication {
         }
         return null; // Or return an empty string or a default value
     }
+
+    public String getFirstname() { return firstName; }
+    public String getLastname() { return lastName; }
+    public void setFirstName(String Name) { firstName = Name; }
+    public void setLastName(String Name) { lastName = Name; }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// Folder Structure - project / util / <java files>
+// Folder Structure - project / util / <java    files>
 import project.util.Authentication;
 import project.util.Employee;
 
@@ -293,8 +293,8 @@ public class Main {
 
         if (Auth.authenticateEmployer()) {
             // IF Statements used to check if the input is empty or not to update the employee
-            if (!newFirstName.isEmpty()) { employeeToEdit.setFirstName(newFirstName); }
-            if (!newLastName.isEmpty()) { employeeToEdit.setLastName(newLastName); }
+            if (!newFirstName.isEmpty()) { Authentication.firstName= newFirstName; }
+            if (!newLastName.isEmpty()) { Authentication.lastName = newLastName; }
             if (!newOccupation.isEmpty()) { employeeToEdit.setOccupation(newOccupation); }
             if (!newContact.isEmpty()) { employeeToEdit.setOccupation(newContact); }
             try {
@@ -406,7 +406,7 @@ public class Main {
     private static void viewProfile() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n\n", "");
         System.out.printf(ANSI_BLUE + "%53s 》》》◆ Ｐｒｏｆｉｌｅ  Ｄｅｔａｉｌｓ ◆ 《《《%n"+ ANSI_RESET, "");
-        System.out.printf("\n\n%65sName: %s %s%n", "", Authentication.firstName, Authentication.lastName);
+        System.out.printf("\n\n%65sName: %s %s%n", "", Auth.getFirstname(), Auth.getLastname());
         System.out.printf("%65sEmail: %s%n", "", Auth.getEmail());
     }
 
@@ -424,10 +424,10 @@ public class Main {
 
         if (Auth.authenticate()) {
             if (!newFirstName.isEmpty()) {
-                Authentication.firstName = newFirstName;
+                Auth.setFirstName(newFirstName);
             }
             if (!newLastName.isEmpty()) {
-                Authentication.lastName = newLastName;
+                Auth.setLastName(newLastName);
             }
             if (!newEmail.isEmpty()) {
                 Auth.setEmail(newEmail);
@@ -514,7 +514,7 @@ public class Main {
     private static void requestLeave() {
         System.out.printf("\n%2s◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇──◆──◇%n","");
         System.out.print("Enter type of leave: ");
-        String leaveType = scanner.nextLine();
+        String leaveType = scanner.nextLine(); scanner.nextLine();
         System.out.print("Enter reason for leave: ");
         String reason = scanner.nextLine();
         int days = 0;
