@@ -4,12 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 // Folder Structure - project / util / <java    files>
 import project.util.Authentication;
 import project.util.Employee;
 
 public class Main {
+    JFrame frame = new JFrame();
     private static List<Employee> employees = new ArrayList<>();    // To maintain a common list without recreating
     private static Scanner scanner = new Scanner(System.in);        // For input
     private static Authentication Auth = new Authentication();      // Object for Authentication class (File)
