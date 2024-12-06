@@ -14,8 +14,8 @@ public class JavaApiApplication {
 	}
 
 	@GetMapping("/")
-	public String hello() {
-		return "Hello World!";
+	public String displayEmployeeData() {
+		return "Output sample";
 	}
 	
 }
