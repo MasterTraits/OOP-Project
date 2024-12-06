@@ -15,10 +15,6 @@ function createWindow() {
 
   mainWindow.loadURL('http://localhost:5173');
   // mainWindow.loadFile('index.html');
-
-  mainWindow.on('closed', () => {
-    // mainWindow = null;
-  });
 }
 
 app.on('ready', createWindow);
