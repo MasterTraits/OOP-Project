@@ -1,3 +1,2 @@
 *.exe filter=lfs diff=lfs merge=lfs -text
-node_modules/electron/dist/electron.exe
 *.csv filter=lfs diff=lfs merge=lfs -text
