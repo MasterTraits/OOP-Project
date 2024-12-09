@@ -1,39 +1,60 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import EmployeeDashboard from "./pages/Employer/EmployeeDashboard"
+import { useContext } from "react"
+import { UserContext } from "./pages/UserContext"
+import { pdfjs } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
+
+// AUTH SIDE
+import Landing from "./pages/Landing"
 import RegistrationForm from "./pages/Auth/RegistrationForm"
+import LoginForm from "./pages/Auth/LoginForm"
+
+// EMPLOYEE SIDE
+import EmployeeDashboard from "./pages/Employee/EmployeeDashboard"
+import Leave from "./pages/Employee/Leave"
+
+// EMPLOYER SIDE
+import EmployerDashboard from "./pages/Employer/EmployerDashboard"
 import Add from "./pages/Employer/Add"
 import Update from "./pages/Employer/Update"
 import Chat from "./pages/Employer/Chat"
-import { useState } from "react"
+import ChatEmployee from "./pages/Employee/Chat"
 
 function App() {
-  const [auth, setAuth] = useState(true)
-  const [employer, setEmployer] = useState(true)
+  const { auth, employer } = useContext(UserContext);
 
   return (
     <>
       <BrowserRouter>
+        <Routes>
           {/* Auth Side */}
-          { !auth ? ( 
-          // AUTHENTICATION SIDE TO ACCESS
-          <Routes>
-            <Route path="/" element={<RegistrationForm/>} />  {/* Default Route */}
-            <Route path="/register" element={<RegistrationForm/>} />
-          </Routes>
+          {/* { !auth ? ( 
+            <> { /* AUTHENTICATION SIDE TO ACCESS */ } 
+              <Route path="/" element={<Landing />} />  
+              <Route path="/register" element={<RegistrationForm/>} />
+              <Route path="/login" element={<LoginForm/>} />
+            {/* </>
           ) : (
             !employer ? ( 
-            // EMPLOYEE SIDE TO ACCESS
-              "Employee Side"
+              <> { /* EMPLOYEE SIDE TO ACCESS */ } 
+                <Route path="/employee" element={<EmployeeDashboard/>} />
+                <Route path="/employee/conversation" element={<ChatEmployee />} />
+                <Route path="/employee/leave" element={<Leave />} />
+              {/* </>
             ) : ( 
-            // EMPLOYER SIDE TO ACCESS
-              <Routes>
-                <Route path="/employer" element={<EmployeeDashboard/>} />
+              <> { /* EMPLOYER SIDE TO ACCESS */ }
+                <Route path="/employer" element={<EmployerDashboard/>} />
                 <Route path="/employer/add-employee" element={<Add />} />
                 <Route path="/employer/update-employee" element={<Update />} />
                 <Route path="/employer/conversation" element={<Chat />} />
-              </Routes>
+              {/* </>
             )
-          )}
+          )} */}
+          </Routes>
       </BrowserRouter>
     </>
   )

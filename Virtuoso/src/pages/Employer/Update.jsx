@@ -161,12 +161,12 @@ export default function EmployerSide() {
         <div className="fixed bottom-0 left-0 right-0 bg-[#f6f7fb] p-4 shadow-md rounded-t-[40px]">
           <div className="flex justify-around max-w-md mx-auto">
             {[  
-              { icon: Home, label: "Home" },
-              { icon: Inbox, label: "Inbox" },
-              { icon: History, label: "History" },
-              { icon: User, label: "Profile" },
-            ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex flex-col items-center">
+              { icon: Home, label: "Home", isActive: true },
+              { icon: Inbox, label: "Inbox", isActive: false },
+              { icon: History, label: "History", isActive: false },
+              { icon: User, label: "Profile", isActive: false },
+            ].map(({ icon: Icon, label, isActive }) => (
+              <div key={label} className={`flex flex-col ${isActive ? 'text-blue-500' : ''} items-center`}>
                 <Icon className="h-8 w-8" />
                 <span className="text-sm mt-1">{label}</span>
               </div>

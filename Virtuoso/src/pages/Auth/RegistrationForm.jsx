@@ -1,18 +1,40 @@
-import { ArrowLeft, Briefcase, User } from 'lucide-react';
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useState } from "react"
+import { ArrowLeft, Briefcase, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "@/pages/UserContext";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function RegistrationForm() {
-  const [ein, setEin] = useState();
+  const [ein, setEin] = useState(true);
+  // const [, setAuth, , setEmployer] = useContext(UserContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    window.location.href = "/employer";
+    setAuth(true);
+  };
 
   return (
     <>
-      <main className="w-[393px] min-h-screen flex flex-col items-center justify-center bg-white font-montserrat">
+      <main className="min-h-screen flex flex-col items-center justify-center bg-white font-montserrat">
         <div className="w-full bg-gradient-to-br from-[#FFC067] to-[#699773] text-white">
           <header className="bg-[#f6f7fb] w-full h-[83px] rounded-b-[50px] shadow-md flex items-center">
-            <ArrowLeft className="w-6 h-6 m-5 text-black" />
+            <Link to="/">
+              <ArrowLeft className="w-6 h-6 m-5 text-black" />
+            </Link>
           </header>
           <h1 className="mt-[62px] ml-[37px] mb-1 text-[32px] font-bold leading-[39px] tracking-[-0.04em] text-left">
             Start your Journey
@@ -22,43 +44,141 @@ export default function RegistrationForm() {
           </p>
         </div>
 
-        <form className="w-full p-5 bg-gradient-to-b from-transparent via-[rgba(195,195,195,0.21872)] to-[#B4B4B4] rounded-[10px] shadow-md">
-          <h2 className="text-[#444] my-5">Account Type</h2>
-          <div className="flex justify-between mb-5">
-            <Button variant="outline" className="w-[48%] bg-[#7FB68B] text-[#717171] border-[3px] border-[#AEAEAE] rounded-[20px]">
+        <form
+          onSubmit={handleSubmit}
+          className="px-8 w-full p-5 bg-gradient-to-b from-transparent via-[rgba(215,215,215,0.22)] to-[#B4B4B4] rounded-[10px] shadow-md"
+        >
+          <h2 className="font-bold text-2xl text-[#444444] tracking-tight my-4">
+            Account Type
+          </h2>
+          <div className="flex justify-between mb-3">
+            <Button
+              onClick={(e) => {
+                setEin(true);
+                e.preventDefault();
+              }}
+              variant="secondary"
+              className={`w-[48%] ${
+                ein ? "bg-[#7FB68B] text-neutral-950" : "text-[#717171]"
+              }  border-[3px] border-[#AEAEAE] rounded-[20px]`}
+            >
               <Briefcase className="w-5 h-5 mr-1" />
               Employer
             </Button>
-            <Button variant="outline" className="w-[48%] bg-[#7FB68B] text-[#717171] border-[3px] border-[#AEAEAE] rounded-[20px]">
+            <Button
+              onClick={(e) => {
+                setEin(false);
+                e.preventDefault();
+              }}
+              variant="secondary"
+              className={`w-[48%] ${
+                !ein ? "bg-[#7FB68B] text-black" : "text-[#717171]"
+              }  border-[3px] border-[#AEAEAE] rounded-[20px]`}
+            >
               <User className="w-5 h-5 mr-1" />
               Employee
             </Button>
           </div>
 
-          <div className="mb-5">
-            <Input type="text" placeholder="What is an EIN?" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-2" />
-            <Label htmlFor="ein" className="text-[#699773] text-base">What is an EIN?</Label>
-          </div>
+          {ein && (
+            <div className="mb-7">
+              <Input
+                type="text"
+                placeholder="Employer Identification Number"
+                className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md py-5 mb-2 pl-4"
+                min="0"
+                max="9"
+              />
+              <Label htmlFor="ein" className="text-[#699773] text-base">
+                <a href="https://www.investopedia.com/terms/e/employer-identification-number.asp">
+                  What is an EIN?
+                </a>
+              </Label>
+            </div>
+          )}
 
-          <h2 className="text-[#444] my-5">Your Personal Details</h2>
-          <Input type="text" id="first-name" placeholder="Given Name" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
-          <Input type="text" id="last-name" placeholder="Last Name" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
+          <h2 className="font-bold text-2xl text-[#444444] tracking-tight my-4">
+            Your Personal Details
+          </h2>
+          <Input
+            type="text"
+            id="first-name"
+            placeholder="Given Name"
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+          />
+          <Input
+            type="text"
+            id="last-name"
+            placeholder="Last Name"
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-2 py-5 pl-4"
+          />
 
-          <Label htmlFor="birthday" className="text-base font-medium leading-[19.5px] tracking-[-0.02em] text-left">Birthday</Label>
-          <Input type="date" id="birthday" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
+          <Label
+            htmlFor="birthday"
+            className="leading-[19.5px] tracking-[-0.02em] text-left"
+          >
+            Birthday
+          </Label>
+          <Input
+            type="date"
+            id="birthday"
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mt-2 mb-7 py-5 pl-4"
+          />
 
-          <h2 className="text-[#444] my-5">Auth | Contact</h2>
-          <Input type="email" placeholder="Email" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
-          <Input type="tel" placeholder="63+ | Contact no." className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
-          <Input type="password" placeholder="Password" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
-          <Input type="password" placeholder="Confirm Password" className="border-[3px] border-[#AEAEAE] rounded-[20px] text-lg mb-5" />
+          <h2 className="font-bold text-2xl text-[#444444] tracking-tight my-4">
+            Auth | Contact
+          </h2>
+          <Input
+            type="email"
+            placeholder="Email"
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+          />
+          <Input
+            type="tel"
+            placeholder="63+ | Contact no."
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+          />
+          <Input
+            type="password"
+            placeholder="Confirm Password"
+            className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-7 py-5 pl-4"
+          />
 
-          <Button type="submit" className="w-full bg-[#ffc067] text-white font-bold rounded-[20px] text-lg">
-            Sign-up
-          </Button>
+          <AlertDialog className="w-full">
+            <AlertDialogTrigger asChild>
+              <Button
+                className="w-full bg-[#ffc067] text-white font-bold rounded-[20px] text-md mb-3"
+              >
+                Sign-up
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Data Privacy</AlertDialogTitle>
+                <AlertDialogDescription>
+                  The Republic Act 10173, officially known as the Data Privacy
+                  Act of 2012 (DPA), is Philippine's data privacy law, aiming to
+                  “to protect the fundamental human right of privacy, of
+                  communication while ensuring free flow of information to
+                  promote innovation and growth” while also ensuring “that
+                  personal information in information and communications systems
+                  in the government and in the private sector are secured and
+                  protected. <br/><br/>This is an action solely dependent on your discretion
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={()=> window.location.href = "/employer"}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </form>
       </main>
     </>
   );
-};
-
+}
