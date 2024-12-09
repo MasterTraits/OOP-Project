@@ -24,8 +24,9 @@ public class Employee {
   String job_title;
   String dateString;
   String payType;
+  String uniqueId;
 
-  public Employee(String first_name, String last_name, String contact, String email, String employment_type, String job_title, String dateString, String payType) {
+  public Employee(String first_name, String last_name, String contact, String email, String employment_type, String job_title, String dateString, String payType, String uniqueId) {
     this.first_name = first_name;
     this.last_name = last_name;
     this.contact = contact;
@@ -34,6 +35,7 @@ public class Employee {
     this.job_title = job_title;
     this.dateString = dateString;
     this.payType = payType;
+    this.uniqueId = uniqueId;
   }
   
 }

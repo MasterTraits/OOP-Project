@@ -18,38 +18,48 @@ import {
 } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-
-const formFields = [
-  {
-    id: "givenName",
-    label: "Given Name *",
-    defaultValue: "Juan Dela",
-    required: true,
-  },
-  {
-    id: "lastName",
-    label: "Last Name *",
-    defaultValue: "Cruz",
-    required: true,
-  },
-  { id: "userId", label: "User ID *", defaultValue: "XXXX-XX", required: true },
-  {
-    id: "contact",
-    label: "Contact *",
-    defaultValue: "+63 000 000 0000",
-    required: true,
-  },
-  {
-    id: "email",
-    label: "Email (Optional)",
-    defaultValue: "sample@gmail.com",
-    required: false,
-  },
-];
-
+import instance from '@/lib/axiosConfig';
+import { useState } from "react";
 
 export default function EmployerSide() {
-  const [date, setDate] = React.useState(new Date());
+  const uniqueAccId = Math.random().toString(36).substring(2);
+  const [fieldsData, setFieldsData] = useState({
+    firstName: '',
+    lastName: '',
+    contact: '',
+    email: '',
+    employmentType: '',
+    payType: '',
+    job: '',
+    date: new Date(),
+  });
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+    data.first_name = fieldsData.firstName;
+    data.last_name = fieldsData.lastName;
+    data.contact = fieldsData.contact;
+    data.email = fieldsData.email;
+    data.employment_type = fieldsData.employmentType;
+    data.job_title = fieldsData.job;
+    data.dateString = fieldsData.date;
+    data.payType = fieldsData.payType;
+    data.uniqueId = uniqueAccId.toString();
+
+    try {
+      const response = await instance.post('/auth/users/employees', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Employee added:', response.data);
+    } catch (error) {
+      console.error('Error adding employee:', error);
+    }
+  };
 
   return (
     <div className="bg-[#f6f7fb]">
@@ -74,28 +84,58 @@ export default function EmployerSide() {
           </Button>
         </div>
 
-        <form className="p-6 space-y-4">
-          {/* Form Fields */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-2">
-            {formFields.slice(0, 4).map((field, index) => (
-              <div key={field.id} className={index === 4 ? "col-span-2" : ""}>
-                <Label className="text-sm text-[#717171]">{field.label}</Label>
-                <Input
-                  placeholder={field.defaultValue}
-                  required={field.required}
-                  className="mt-1 border-[3px] border-[#adadad] rounded-[10px]"
-                />
-              </div>
-            ))}
+          <div>
+            <Label className="text-sm text-[#717171]">Given Name *</Label>
+            <Input
+              type="text"
+              placeholder="Juan Dela"
+              required
+              className="mt-1 border-[3px] border-[#adadad] rounded-[10px]"
+              onChange={(e) => setFieldsData({ ...fieldsData, firstName: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-[#717171]">Last Name *</Label>
+            <Input
+              type="text"
+              placeholder="Cruz"
+              required
+              className="mt-1 border-[3px] border-[#adadad] rounded-[10px]"
+              onChange={(e) => setFieldsData({ ...fieldsData, lastName: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-[#717171]">Job Title *</Label>
+            <Input
+              type="text"
+              placeholder="Cook"
+              required
+              className="mt-1 border-[3px] border-[#adadad] rounded-[10px]"
+              onChange={(e) => setFieldsData({ ...fieldsData, job: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-[#717171]">Contact *</Label>
+            <Input
+              type="text"
+              placeholder="+63 000 000 0000"
+              required
+              className="mt-1 border-[3px] border-[#adadad] rounded-[10px]"
+              onChange={(e) => setFieldsData({ ...fieldsData, contact: e.target.value })}
+            />
+          </div>
           </div>
 
           <div className="col-span-2">
             <Label className="text-sm text-[#717171]">
-              {formFields[4].label}
+              Email
             </Label>
             <Input
-              defaultValue={formFields[4].defaultValue}
+              placeholder="juandelacruz@gmail.com"
               className="mt-1 border-[3px] border-[#adadad] rounded-[10px]"
+              onChange={(e) => setFieldsData({ ...fieldsData, email: e.target.value })}
             />
           </div>
 
@@ -108,8 +148,8 @@ export default function EmployerSide() {
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="part-time">Part-time</SelectItem>
-                  <SelectItem value="full-time">Full-time</SelectItem>
+                  <SelectItem value="part-time" onClick={() => setFieldsData({...fieldsData, employmentType: 'Part-time'})}>Part-time</SelectItem>
+                  <SelectItem value="full-time" onClick={() => setFieldsData({...fieldsData, employmentType: 'Full-time'})}>Full-time</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -120,8 +160,8 @@ export default function EmployerSide() {
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="weekly">Weekly</SelectItem>
+                  <SelectItem value="monthly" onClick={() => setFieldsData({...fieldsData, payType: 'Monthly'})}>Monthly</SelectItem>
+                  <SelectItem value="weekly" onClick={() => setFieldsData({...fieldsData, payType: 'Weekly'})}>Weekly</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -134,8 +174,8 @@ export default function EmployerSide() {
               <CardContent>
                 <Calendar
                   mode="single"
-                  selected={date}
-                  onSelect={setDate}
+                  selected={fieldsData.date}
+                  onSelect={(date) => setFieldsData({ ...fieldsData, date })}
                   className="rounded-md w-full"
                 />
               </CardContent>

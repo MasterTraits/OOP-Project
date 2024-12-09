@@ -20,8 +20,7 @@ import Leave from "./pages/Employee/Leave"
 // EMPLOYER SIDE
 import EmployerDashboard from "./pages/Employer/EmployerDashboard"
 import Add from "./pages/Employer/Add"
-import Update from "./pages/Employer/Update"
-import Chat from "./pages/Employer/Chat"
+import { UpdateEmployee, ChatInterface } from "./pages/Employer/EmployerDashboard"
 import ChatEmployee from "./pages/Employee/Chat"
 
 function App() {
@@ -49,8 +48,8 @@ function App() {
               <> { /* EMPLOYER SIDE TO ACCESS */ }
                 <Route path="/employer" element={<EmployerDashboard/>} />
                 <Route path="/employer/add-employee" element={<Add />} />
-                <Route path="/employer/update-employee" element={<Update />} />
-                <Route path="/employer/conversation" element={<Chat />} />
+                <Route path="/employer/update-employee" element={<UpdateEmployee />} />
+                <Route path="/employer/conversation" element={<ChatInterface />} />
               {/* </>
             )
           )} */}
