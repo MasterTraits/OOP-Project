@@ -7,16 +7,33 @@ import lombok.NoArgsConstructor;
 
 import org.springframework.data.annotation.Id;
 import org.bson.types.ObjectId;
-import java.util.List;
+// import java.util.List;
 
-@Document(collection = "movies")
+@Document(collection = "employee")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
   @Id
-  private ObjectId Id;
-  private String plot;
-  private String fullplot;
-  private List<String> genres;
+  ObjectId id;
+  String first_name;
+  String last_name;
+  String contact;
+  String email;
+  String employment_type;
+  String job_title;
+  String dateString;
+  String payType;
+
+  public Employee(String first_name, String last_name, String contact, String email, String employment_type, String job_title, String dateString, String payType) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.contact = contact;
+    this.email = email;
+    this.employment_type = employment_type;
+    this.job_title = job_title;
+    this.dateString = dateString;
+    this.payType = payType;
+  }
+  
 }
