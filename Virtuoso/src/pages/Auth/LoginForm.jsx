@@ -3,9 +3,29 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft } from "lucide-react";
-import React from "react";
+import instance from "@/lib/axiosConfig";
+import { useState } from "react";
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(""); 
+    try {
+      const res = await instance.post("/auth/users/login", { email });
+      console.log(res);
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        setError("This email is already in use.");
+      } else {
+        setError("An error occurred. Please try again.");
+      }
+      console.log(error);
+    }
+  }
+
   return (
     <div className="bg-[#f6f7fb] overflow-y-hidden">
       <div className="relative w-full overflow-hidden">
@@ -64,6 +84,7 @@ export default function SignIn() {
             <Button className="w-full h-14 bg-[#ffc067] hover:bg-[#ffc067]/90 rounded-[20px] font-bold text-xl tracking-tight">
               Sign-in
             </Button>
+            {error && <p className="text-red-500 text-center">{error}</p>}
           </div>
         </div>
       </div>

@@ -22,7 +22,6 @@ function DateComponent() {
   return <span className="text-header font-bold my-0">{currentDateTime}</span>;
 }
 
-
 export default function ChatInterface() {
   const [input, setInput] = useState('');
   const [showResult, setShowResult] = useState(false);

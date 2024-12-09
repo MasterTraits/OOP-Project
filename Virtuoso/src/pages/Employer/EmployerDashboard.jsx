@@ -60,14 +60,19 @@ export default function EmployerDashboard() {
         </div>
         <Table>
           <TableBody className='odd:bg-white even:bg-slate-50'>
-            {/* MAKE THIS INTO A ID CLASS */}
+            {/* ADD MAP */}
             <TableRow>
               <TableCell className="hover:bg-neutral-100 flex items-center justify-between">
+                <div className="flex items-center">
+                  {showCheckBox && (
+                    <Checkbox
+                      className="mr-3 h-5 w-5"
+                    />
+                  )}
                   <Link 
                     to="/employer/conversation"
                     className="flex items-center"
                   >
-                    {showCheckBox && <Checkbox onClick={(e) => e.preventDefault()} className="mr-3 h-5 w-5" />}
                     <img src="" className="mr-4 h-14 w-14 rounded-full bg-black"/>
                     <div className="leading-3">
                       <span className="text-xs">Type</span>
@@ -75,19 +80,28 @@ export default function EmployerDashboard() {
                       <p>Message here</p>
                     </div>
                   </Link>
-                  <Link 
-                    to="/employer/update-employee"
-                    className="p-2 rounded-full bg-neutral-200 hover:bg-slate-300"
-                    >
-                      <Pen className="h-5 w-5"/>
-                  </Link>
+                </div>
+                <Link 
+                  to="/employer/update-employee"
+                  className="p-2 rounded-full bg-neutral-200 hover:bg-slate-300"
+                >
+                  <Pen className="h-5 w-5"/>
+                </Link>
               </TableCell>
             </TableRow>
-          </TableBody>
-        </Table>
-      </main>
-      
-      {/* Bottom Navigation */}
+            
+            </TableBody>
+            </Table>
+            </main>
+
+            {showCheckBox && (
+              <Button 
+              // onClick={handleDelete}
+                className="fixed bottom-28 left-1/2 transform -translate-x-1/2 w-3/4 bg-red-500 text-white transition-opacity duration-300 opacity-100">
+                Delete
+              </Button>
+            )}
+            {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#f6f7fb] p-4 shadow-md rounded-t-[40px]">
           <div className="flex justify-around max-w-md mx-auto">
             {[  
