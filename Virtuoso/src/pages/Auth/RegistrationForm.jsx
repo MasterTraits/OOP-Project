@@ -16,15 +16,48 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import instance from '@/lib/axiosConfig';
 
 export default function RegistrationForm() {
   const [ein, setEin] = useState(true);
-  // const [, setAuth, , setEmployer] = useContext(UserContext);
+  const [fieldsData, setFieldsData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    employer: ein,
+    ein: '',
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    window.location.href = "/employer";
-    setAuth(true);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+    data.first_name = fieldsData.firstName;
+    data.last_name = fieldsData.lastName;
+    data.email = fieldsData.email;
+    data.password = fieldsData.password;
+    data.employer = fieldsData.employer;
+    data.ein = fieldsData.ein;
+
+    try {
+      const response = await instance.post('/auth/users', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Employee added:', response.data);
+    } catch (error) {
+      console.error('Error adding employee:', error);
+    }
+    
+    // if (fieldsData.employer == true) {
+    //   setAuth(true);
+    //   setEmployer(true);
+    // } else {
+    //   setAuth(true);
+    // }
   };
 
   return (
@@ -88,6 +121,7 @@ export default function RegistrationForm() {
                 className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md py-5 mb-2 pl-4"
                 min="0"
                 max="9"
+                onChange={(e) => setFieldsData({ ...fieldsData, ein: e.target.value })}
               />
               <Label htmlFor="ein" className="text-[#699773] text-base">
                 <a href="https://www.investopedia.com/terms/e/employer-identification-number.asp">
@@ -105,12 +139,14 @@ export default function RegistrationForm() {
             id="first-name"
             placeholder="Given Name"
             className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+            onChange={(e) => setFieldsData({ ...fieldsData, firstName: e.target.value })}
           />
           <Input
             type="text"
             id="last-name"
             placeholder="Last Name"
             className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-2 py-5 pl-4"
+            onChange={(e) => setFieldsData({ ...fieldsData, lastName: e.target.value })}
           />
 
           <Label
@@ -123,6 +159,7 @@ export default function RegistrationForm() {
             type="date"
             id="birthday"
             className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mt-2 mb-7 py-5 pl-4"
+            onChange={(e) => setFieldsData({ ...fieldsData, birthday: e.target.value })}
           />
 
           <h2 className="font-bold text-2xl text-[#444444] tracking-tight my-4">
@@ -132,11 +169,13 @@ export default function RegistrationForm() {
             type="email"
             placeholder="Email"
             className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+            onChange={(e) => setFieldsData({ ...fieldsData, email: e.target.value })}
           />
           <Input
             type="tel"
             placeholder="63+ | Contact no."
             className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-3 py-5 pl-4"
+            onChange={(e) => setFieldsData({ ...fieldsData, contact: e.target.value })}
           />
           <Input
             type="password"
@@ -147,11 +186,13 @@ export default function RegistrationForm() {
             type="password"
             placeholder="Confirm Password"
             className="border-[3px] border-[#AEAEAE] rounded-[20px] text-md mb-7 py-5 pl-4"
+            onChange={(e) => setFieldsData({ ...fieldsData, password: e.target.value })}
           />
 
           <AlertDialog className="w-full">
             <AlertDialogTrigger asChild>
               <Button
+                type="submit"
                 className="w-full bg-[#ffc067] text-white font-bold rounded-[20px] text-md mb-3"
               >
                 Sign-up

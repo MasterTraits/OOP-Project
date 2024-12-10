@@ -112,7 +112,7 @@ export default function EmployerDashboard() {
                       />
                     )}
                     <Link 
-                      to={`/employer/conversation/${employee?.id}`}
+                      to={`/employer/conversation/`}
                       className="flex items-center"
                     >
                       <img src={employee.avatar} className="mr-4 h-14 w-14 rounded-full bg-black"/>

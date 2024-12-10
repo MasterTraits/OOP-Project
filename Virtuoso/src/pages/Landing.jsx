@@ -18,20 +18,17 @@ export default function Landing() {
           {/* Logo */}
           <div className="flex flex-col items-center">
             <img
-              src="/image.png"
+              src="/KITAKIT.png"
               alt="Virtuoso Logo"
-              className="w-[147px] h-[147px] mt-[259px] mb-7"
+              className="h-1/2 w-1/2 mt-[259px] mb-7"
             />
           </div>
 
           {/* Content */}
           <div className="flex flex-col items-center px-6">
-            <h1 className="font-bold text-3xl font-sans text-black mb-4">
-              Virtuoso
-            </h1>
-            <p className="text-sm text-[#000000cc] text-center max-w-[203px] leading-[22px] mb-24">
-              blah blah blah description here
-            </p>
+            <div className="text-md font-semibold text-[#ffc067] text-center max-w-[203px] leading-[22px] mb-24">
+              Asenso ng Negosyo, Sagot Namin.
+            </div>
           </div>
 
           {/* Buttons */}

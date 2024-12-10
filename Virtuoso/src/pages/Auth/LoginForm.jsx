@@ -14,14 +14,19 @@ export default function SignIn() {
     e.preventDefault();
     setError(""); 
     try {
-      const res = await instance.post("/auth/users/login", { email });
-      console.log(res);
-    } catch (error) {
-      if (error.response && error.response.status === 409) {
+      const res = await instance.get("/auth/users");
+      const users = res.data;
+      const userExists = users.some(user => user.email === email);
+
+      if (userExists) {
         setError("This email is already in use.");
       } else {
-        setError("An error occurred. Please try again.");
+        // Proceed with login or further actions
+        console.log("Email is available.");
+        window.location.href = "/employee";
       }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
       console.log(error);
     }
   }
@@ -37,7 +42,7 @@ export default function SignIn() {
 
         {/* Top Navigation Bar */}
         <Card className="relative flex items-center pl-6 w-full h-[83px] rounded-b-[50px] shadow-md bg-[#f6f7fb] border-none">
-          <ArrowLeft className="h-6 w-6" />
+          <ArrowLeft className="h-6 w-6" onClick={()=> window.location.href = "/" }/>
         </Card>
 
         {/* Welcome Text */}
@@ -56,10 +61,13 @@ export default function SignIn() {
             Access the latest
           </h2>
 
-          <div className="space-y-4">
+          <form 
+            onSubmit={handleSubmit}
+            className="space-y-4">
             <Input
               className="h-[50px] rounded-[20px] border-[3px] border-[#adadad] bg-transparent px-5"
               placeholder="Email or Contact no."
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
@@ -85,7 +93,7 @@ export default function SignIn() {
               Sign-in
             </Button>
             {error && <p className="text-red-500 text-center">{error}</p>}
-          </div>
+          </form>
         </div>
       </div>
     </div>

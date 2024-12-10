@@ -23,6 +23,18 @@ public class User {
   private boolean employer;
   private String first_name;
   private String last_name;
+  private String ein;
+  private String birthday;
   @DocumentReference
   private List<Employee> employees;
+
+  public User(String email, String password, boolean employer, String first_name, String last_name, String ein, String birthday) {
+    this.email = email;
+    this.password = password;
+    this.employer = employer;
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.ein = ein;
+    this.birthday = birthday;
+  }
 }
